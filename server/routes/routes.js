@@ -4,7 +4,8 @@ const router = new Router()
 
 router.post('/registration', userController.registration)
 router.post('/login', userController.login)
-router.get('/getall', userController.getAll)
+router.get('/users', userController.getAll)
 router.get('/auth', userController.check)
+//router.delete('/user', userController.deleteUser)
 
 module.exports = router
