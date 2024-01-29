@@ -6,6 +6,6 @@ router.post('/registration', userController.registration)
 router.post('/login', userController.login)
 router.get('/users', userController.getAll)
 router.get('/auth', userController.check)
-//router.delete('/user', userController.deleteUser)
+router.delete('/user', userController.deleteUser)
 
 module.exports = router
