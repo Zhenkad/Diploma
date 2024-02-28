@@ -92,7 +92,7 @@ class UserController{
      * Полукчение всех пользователей
      * @param {*} req 
      * @param {*} res 
-     * @returns 
+     * @returns
      */
     async getAll(req, res){
         const users = await User.findAll()
