@@ -78,11 +78,8 @@ class UserController{
     }
 
     async check(req, res, next){
-        const {id} = req.query
-        if(!id){
-            return next(ApiError.badReques('Не задан id'))
-        }
-        res.json(id)
+        const token = genetateJWT(user.id, user.user_name, user.password)
+        return res.json({token})
     }
 
     /**
