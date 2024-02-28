@@ -74,7 +74,7 @@ class UserController{
             return next(ApiError.internal('Неверное имя пользователя или пароль'))
         }
         const token = genetateJWT(user.id, user.user_name, user.password)
-        return res.json({token, message: "You passed"})
+        return res.json({token})
     }
 
     async check(req, res, next){
