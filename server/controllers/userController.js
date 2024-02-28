@@ -10,9 +10,9 @@ const bcrypt = require('bcrypt')
  * @param {*} user_name 
  * @returns 
  */
-const genetateJWT = (id, user_name, password) => {
+const genetateJWT = (id, user_name, password, role) => {
     return jwt.sign(
-        { id, user_name, password},
+        { id, user_name, password, role},
         process.env.SECRET_KEY,
         {expiresIn: '24h'}
     )
@@ -38,8 +38,8 @@ class UserController{
         }
         const hashPassword = await bcrypt.hash(password, 5)
         const user = await User.create({user_name, password: hashPassword})
-        const token = genetateJWT(user.id, user.user_name, user.password)
-        return res.json(token)
+        const token = genetateJWT(user.id, user.user_name, user.password, user.role)
+        return res.json({token})
     }
 
     /**
@@ -69,16 +69,19 @@ class UserController{
     async login(req, res, next){
         const {user_name, password} = req.body
         const user = await User.findOne({where: {user_name}})
-        let comparePassword = bcrypt.compareSync(password, user.password)
-        if (!comparePassword || !user){
+        if (!user) {
             return next(ApiError.internal('Неверное имя пользователя или пароль'))
         }
-        const token = genetateJWT(user.id, user.user_name, user.password)
+        let comparePassword = bcrypt.compareSync(password, user.password)
+        if (!comparePassword){
+            return next(ApiError.internal('Неверное имя пользователя или пароль'))
+        }
+        const token = genetateJWT(user.id, user.user_name, user.password, user.role)
         return res.json({token})
     }
 
     async check(req, res, next){
-        const token = genetateJWT(user.id, user.user_name, user.password)
+        const token = genetateJWT(req.user.id, req.user.password, req.user.role)
         return res.json({token})
     }
 
