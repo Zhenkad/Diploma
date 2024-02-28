@@ -38,7 +38,12 @@ class UserController{
         }
         const hashPassword = await bcrypt.hash(password, 5)
         const user = await User.create({user_name, password: hashPassword})
-        return res.json(user)
+        const token = jwt.sign(
+            {id: user.id, user_name},
+            process.env.SECRET_KEY,
+            {expiresIn: '24h'}
+            )
+        return res.json(token)
     }
 
     /**
@@ -72,7 +77,6 @@ class UserController{
         if (!comparePassword || !user){
             return next(ApiError.internal('Неверное имя пользователя или пароль'))
         }
-        const token = genetateJWT(user.id, user.user_name, user.password)
         return res.json({token, message: "You passed"})
     }
 
