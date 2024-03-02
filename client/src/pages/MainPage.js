@@ -1,6 +1,6 @@
 const React = require('react');
 
-const Auth = () => {
+const componentName = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const Auth = () => {
     );
 };
 
-module.exports = Auth;
+module.exports = componentName;
