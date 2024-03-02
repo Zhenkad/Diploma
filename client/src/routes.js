@@ -1,7 +1,8 @@
 import Admin from './pages/Admin'
 import MainPage from './pages/MainPage'
 import Auth from './pages/Auth'
-import { ADMIN_ROUTE, AUTH_ROUTE, MAINPAGE_ROUTE, REGISTRATION_ROUTE } from './utils/consts'
+import Registration from './pages/Registration'
+import { ADMIN_ROUTE, LOGIN_ROUTE, MAINPAGE_ROUTE, REGISTRATION_ROUTE } from './utils/consts'
 
 export const authRoutes = [
     {
@@ -22,7 +23,7 @@ export const publickRoutes = [
     },
 
     {
-        path: AUTH_ROUTE,
+        path: LOGIN_ROUTE,
         Component: Auth
     }
 ]

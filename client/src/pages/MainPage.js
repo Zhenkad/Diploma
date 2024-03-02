@@ -1,11 +1,11 @@
 const React = require('react');
 
-const componentName = () => {
+const MainPage = () => {
     return (
         <div>
-            
+            MainPage
         </div>
     );
 };
 
-module.exports = componentName;
+export default MainPage;

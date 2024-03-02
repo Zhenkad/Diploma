@@ -1,11 +1,11 @@
 const React = require('react');
 
-const Auth = () => {
+const Registration = () => {
     return (
         <div>
-            Auth
+            
         </div>
     );
 };
 
-export default Auth;
+export default Registration;
