@@ -28,7 +28,7 @@ class UserController{
      * @returns 
      */
     async registration(req, res, next){
-        const {user_name, password} = req.body
+        const {user_name, password, role} = req.body
         if(!user_name || !password){
             return next(ApiError.badReques('Неверное имя пользователя или пароль'))
         }
@@ -37,7 +37,7 @@ class UserController{
             return next(ApiError.badReques('Такой пользователь уже существует'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
-        const user = await User.create({user_name, password: hashPassword})
+        const user = await User.create({user_name, password: hashPassword}, role)
         const token = genetateJWT(user.id, user.user_name, user.password, user.role)
         return res.json({token})
     }
