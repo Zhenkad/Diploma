@@ -11,11 +11,14 @@ const User = sequelize.define('users', {
 const Levels = sequelize.define('levels', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    url: {type: DataTypes.STRING, unique: true, allowNull: false}
 })
 
 const Tokens = sequelize.define('tokens', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     token: {type: DataTypes.STRING, unique: true, allowNull: false},
+    tokenStatus: {type: DataTypes.BOOLEAN, defaultValue: false},
+    passDate: {type: DataTypes.DATE}
 })
 
 Levels.hasMany(Tokens)
