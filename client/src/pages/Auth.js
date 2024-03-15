@@ -3,7 +3,8 @@ import { Container, Form } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import { NavLink, useLocation } from 'react-router-dom';
-import { LOGIN_ROUTE } from '../utils/consts';
+import {REGISTRATION_ROUTE, LOGIN_ROUTE} from "../utils/consts";
+
 
 const Auth = () => {
     const location = useLocation()
@@ -19,11 +20,11 @@ const Auth = () => {
                     <div className="d-flex justify-content-between mt-3">
                         {isLogin ?
                             <div>
-                                Нет аккаунта? <NavLink to={'/registration'}>Зарегистрируйся!</NavLink>
+                                Нет аккаунта? <NavLink to={REGISTRATION_ROUTE}>Зарегистрируйся!</NavLink>
                             </div>
                             :
                             <div>
-                                Есть аккаунт? <NavLink to={'/login'}>Войдите!</NavLink>
+                                Есть аккаунт? <NavLink to={LOGIN_ROUTE}>Войдите!</NavLink>
                             </div>
                         }
                         <Button className=" align-self-end" variant={"outline-success"}>{isLogin ? 'Войти' : 'Регистрация'}</Button>

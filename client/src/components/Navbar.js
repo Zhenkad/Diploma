@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav'
 import { Button } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 import { Context } from '../index';
+import { LOGIN_ROUTE } from '../utils/consts';
 
 const NavBar = observer(() => {
     const { user } = useContext(Context)
@@ -21,7 +22,7 @@ const NavBar = observer(() => {
                         </Nav>
                         :
                         <Nav>
-                            <Button variant={"outline-light"} onClick={() => user.setIsAuth(true)}>Авторизация</Button>
+                            <Button variant={"outline-light"} href={LOGIN_ROUTE}>Авторизация</Button>
                         </Nav>
                     }
                 </Navbar.Collapse>
