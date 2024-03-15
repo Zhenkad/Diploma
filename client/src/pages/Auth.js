@@ -27,7 +27,7 @@ const Auth = () => {
                                 Есть аккаунт? <NavLink to={LOGIN_ROUTE}>Войдите!</NavLink>
                             </div>
                         }
-                        <Button className=" align-self-end" variant={"outline-success"}>{isLogin ? 'Войти' : 'Регистрация'}</Button>
+                        <Button className="align-self-end" variant={"outline-success"}>{isLogin ? 'Войти' : 'Регистрация'}</Button>
                     </div>
                 </Form>
             </Card>

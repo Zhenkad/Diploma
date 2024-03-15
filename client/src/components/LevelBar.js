@@ -7,7 +7,7 @@ import LevelItem from './LevelItem';
 const LevelBar = observer(() => {
     const { level } = useContext(Context)
     return (
-        <Row className="d-flex mt-5 justify-content-center">
+        <Row className="d-flex">
             {level.levels.map(level =>
                 <LevelItem key={level.id} level={level} />
             )}

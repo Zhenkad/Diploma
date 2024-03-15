@@ -1,17 +1,11 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import {Container} from 'react-bootstrap';
 import LevelBar from '../components/LevelBar';
 
 const MainPage = () => {
     return (
-        <Container>
-            <Row>
-                <Col md={9}>
-                    <LevelBar />
-                </Col>
-            </Row>
+        <Container className="my-5">
+            <LevelBar/>
         </Container>
     );
 };
