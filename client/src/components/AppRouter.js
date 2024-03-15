@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Routes, Route } from 'react-router-dom'
 import MainPage from '../pages/MainPage';
-import Registration from '../pages/Registration';
 import Auth from '../pages/Auth';
 import Admin from '../pages/Admin';
 import { Context } from "../index";
@@ -14,8 +13,8 @@ const AppRouter = () => {
         return (
             <Routes>
                 <Route path = '/' element = {<MainPage />} />
-                <Route path = '/registration' element = {<Registration />} />
-                <Route path = '/auth' element = {<Auth />} />
+                <Route path = '/registration' element = {<Auth />} />
+                <Route path = '/login' element = {<Auth />} />
             </Routes>
         );
     }

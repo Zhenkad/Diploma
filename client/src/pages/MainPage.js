@@ -1,10 +1,18 @@
-const React = require('react');
+import React from 'react';
+import { Container } from 'react-bootstrap';
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import LevelBar from '../components/LevelBar';
 
 const MainPage = () => {
     return (
-        <div>
-            MainPage
-        </div>
+        <Container>
+            <Row>
+                <Col md={9}>
+                    <LevelBar />
+                </Col>
+            </Row>
+        </Container>
     );
 };
 
