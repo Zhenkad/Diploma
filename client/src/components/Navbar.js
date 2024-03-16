@@ -5,7 +5,7 @@ import Nav from 'react-bootstrap/Nav'
 import { Button } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 import { Context } from '../index';
-import { LOGIN_ROUTE } from '../utils/consts';
+import {ADMIN_ROUTE, LOGIN_ROUTE} from '../utils/consts';
 
 const NavBar = observer(() => {
     const { user } = useContext(Context)
@@ -17,7 +17,7 @@ const NavBar = observer(() => {
                 <Navbar.Collapse className="justify-content-end">
                     {user.isAuth ?
                         <Nav>
-                            <Button variant={"outline-light"}>Панель администратора</Button>
+                            <Button variant={"outline-light"} href={ADMIN_ROUTE}>Панель администратора</Button>
                             <Button variant={"outline-light"} style={{marginLeft: "10px"}}>Выйти</Button>
                         </Nav>
                         :
