@@ -11,14 +11,15 @@ router.post('/registration', userController.registration)
 router.post('/login', userController.login)
 router.get('/users', userController.getAll)
 router.get('/auth', authMiddleware, userController.check)
-router.delete('/deletuser', checkRole('Admin'), userController.deleteUser)
+router.delete('/deleteuser', checkRole('ADMIN'), userController.deleteUser)
 
 
-//Level routes
-router.post('/createlevel', checkRole('Admin'), levelController.createLevel)
+/*Level routes
+router.post('/createlevel', checkRole('ADMIN'), levelController.createLevel)
 router.get('/levels', levelController.getAllLevels)
 router.post('/createtoken', levelController.createToken)
 router.post('/checktoken')
+ */
 
 
 module.exports = router

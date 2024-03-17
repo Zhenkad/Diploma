@@ -1,30 +1,22 @@
 import React, {useContext} from 'react';
-import {Routes, Route} from 'react-router-dom'
-import MainPage from '../pages/MainPage';
-import Auth from '../pages/Auth';
-import Admin from '../pages/Admin';
+import {Route, Switch, Redirect} from 'react-router-dom'
 import {Context} from "../index";
+import {authRoutes, publicRoutes} from "../rotes";
+import {MAINPAGE_ROUTE} from "../utils/consts";
 
 
 const AppRouter = () => {
     const {user} = useContext(Context)
-    console.log(user)
-    if (!user.isAuth) {
-        return (
-            <Routes>
-                <Route path='/' element={<MainPage/>}/>
-                <Route path='/registration' element={<Auth/>}/>
-                <Route path='/login' element={<Auth/>}/>
-            </Routes>
-        );
-    }
     return (
-        <Routes>
-            <Route path='/' element={<MainPage/>}/>
-            <Route path='/registration' element={<Auth/>}/>
-            <Route path='/login' element={<Auth/>}/>
-            <Route path='/admin' element={<Admin/>}/>
-        </Routes>
+        <Switch>
+            {user.isAuth && authRoutes.map(({path, Component}) =>
+                <Route key={path} path={path} component={Component} exact/>
+            )}
+            {publicRoutes.map(({path, Component}) =>
+                <Route key={path} path={path} component={Component} exact/>
+            )}
+            <Redirect to={MAINPAGE_ROUTE}/>
+        </Switch>
     );
 };
 

@@ -3,12 +3,12 @@ import {Col, Card} from 'react-bootstrap'
 import Image from 'react-bootstrap/Image'
 import Button from "react-bootstrap/Button";
 import {Context} from "../index";
-import {useNavigate} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import {LOGIN_ROUTE} from "../utils/consts";
 
 const LevelItem = ({level}) => {
     const {user} = useContext(Context)
-    const navigate = useNavigate()
+    const navigate = useHistory()
     return (
         <Col xs={12} sm={6} md={4} lg={3} xl={2}>
             <Card className="my-3" border={"light"}>
@@ -18,7 +18,7 @@ const LevelItem = ({level}) => {
                 <Button className="mt-1 w-100" disabled={level.status} variant={"outline-dark"}
                         onClick={user.isAuth ? () => window.location.href = 'http://localhost:' + level.port
                             :
-                            () => navigate(LOGIN_ROUTE)}>
+                            () => navigate.push(LOGIN_ROUTE)}>
                     {level.status ? 'Выполнено' : 'Приступить'}
                 </Button>
             </Card>

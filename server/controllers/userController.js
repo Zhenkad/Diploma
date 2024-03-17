@@ -10,9 +10,9 @@ const bcrypt = require('bcrypt')
  * @param {*} user_name 
  * @returns 
  */
-const genetateJWT = (id, user_name, password, role) => {
+const generateJWT = (id, user_name, role) => {
     return jwt.sign(
-        { id, user_name, password, role},
+        { id, user_name, role},
         process.env.SECRET_KEY,
         {expiresIn: '24h'}
     )
@@ -37,21 +37,20 @@ class UserController{
         }
         const hashPassword = await bcrypt.hash(password, 5)
         const user = await User.create({user_name, password: hashPassword, role})
-        const token = genetateJWT(user.id, user.user_name, user.password, user.role)
+        const token = generateJWT(user.id, user.user_name, user.role)
         return res.json({token})
     }
 
     /**
-     * TODO: дописать удаление пользователей (пока не знаю как делать)
      * @param {*} req 
-     * @param {*} res 
+     * @param {*} res
      */
     async deleteUser(req, res, next){
         const {id} = req.body
         if (!id){
             return next(ApiError.badReques('Пользователь для удаления не указан'))
         }
-        let result = await User.destroy({where: {
+        const result = await User.destroy({where: {
             id: id
           }})
         return res.json({message: result})
@@ -74,12 +73,12 @@ class UserController{
         if (!comparePassword){
             return next(ApiError.internal('Неверное имя пользователя или пароль'))
         }
-        const token = genetateJWT(user.id, user.user_name, user.password, user.role)
+        const token = generateJWT(user.id, user.user_name, user.role)
         return res.json({token})
     }
 
     async check(req, res, next){
-        const token = genetateJWT(req.user.id, req.user.password, req.user.role)
+        const token = generateJWT(req.user.id, req.user.user_name, req.user.role)
         return res.json({token})
     }
 
