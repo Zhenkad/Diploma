@@ -6,9 +6,17 @@ import { Button } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 import { Context } from '../index';
 import {ADMIN_ROUTE, LOGIN_ROUTE} from '../utils/consts';
+import {useHistory} from "react-router-dom";
 
 const NavBar = observer(() => {
     const { user } = useContext(Context)
+    const history = useHistory()
+
+    const logOut = () => {
+        user.setUser({})
+        user.setIsAuth(false)
+
+    }
     return (
         <Navbar className="navbar navbar-dark bg-dark">
             <Container>
@@ -17,12 +25,12 @@ const NavBar = observer(() => {
                 <Navbar.Collapse className="justify-content-end">
                     {user.isAuth ?
                         <Nav>
-                            <Button variant={"outline-light"} href={ADMIN_ROUTE}>Панель администратора</Button>
-                            <Button variant={"outline-light"} style={{marginLeft: "10px"}}>Выйти</Button>
+                            <Button variant={"outline-light"} onClick={() => history.push(ADMIN_ROUTE)}>Панель администратора</Button>
+                            <Button variant={"outline-light"} style={{marginLeft: "10px"}} onClick={() => logOut()}>Выйти</Button>
                         </Nav>
                         :
                         <Nav>
-                            <Button variant={"outline-light"} href={LOGIN_ROUTE}>Авторизация</Button>
+                            <Button variant={"outline-light"} onClick={() => history.push(LOGIN_ROUTE)}>Авторизация</Button>
                         </Nav>
                     }
                 </Navbar.Collapse>
