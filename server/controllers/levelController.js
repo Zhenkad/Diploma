@@ -19,10 +19,9 @@ class levelController{
 
     async createToken(req, res, next){
         const {userId, levelId} = req.body
-        const candidateUser = await User.findOne({where: userId})
-        const candidateLevel = await Levels.findOne({where: levelId})
-        if (!candidateLevel || !candidateUser){
-            return next(ApiError.badReques('Указанного пользователя или уровня не существует.'))
+        const candidate = await Tokens.findOne({where: {userId, levelId}})
+        if (candidate){
+            return next(ApiError.badReques('Ключ для этого пользователя уже существует.'))
         }
         const token = randomiser.generate({length: 12})
         let newToken = await Tokens.create({levelId, userId, token})

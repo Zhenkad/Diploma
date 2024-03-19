@@ -13,12 +13,8 @@ export const createToken = async (userId, LevelId) => {
     return jwtDecode(data.token)
 }
 
-export const fetchLevels = async () => {
-    const {data} = await $host.get('api/levels')
-    return data
-}
 
-export const fetchTokens = async () => {
+export const fetchLevels = async () => {
     const {data} = await $host.get('api/levels')
     return data
 }

@@ -9,7 +9,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Context.Provider value={{
         user: new UserStore(),
-        level: new LevelStore()
+        level: new LevelStore(),
     }}>
         <React.StrictMode>
             <App/>
