@@ -16,7 +16,7 @@ const LevelItem = ({level}) => {
                        src={level.img ? level.img : "https://i.pinimg.com/originals/91/e0/4f/91e04f1dcac67b1ce312e40b8503b126.jpg"}/>
                 <div>{level.name}</div>
                 <Button className="mt-1 w-100" disabled={level.status} variant={"outline-dark"}
-                        onClick={user.isAuth ? () => window.location.href = 'http://localhost:' + level.port
+                        onClick={user.isAuth ? () => window.open('http://localhost:' + level.port, '_blank')
                             :
                             () => navigate.push(LOGIN_ROUTE)}>
                     {level.status ? 'Выполнено' : 'Приступить'}

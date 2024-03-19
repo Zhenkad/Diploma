@@ -12,7 +12,7 @@ const Levels = sequelize.define('levels', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     port: {type: DataTypes.STRING, unique: true, allowNull: false},
-    img: {type: DataTypes.STRING, allowNull: false}
+    img: {type: DataTypes.STRING, allowNull: true}
 })
 
 const Tokens = sequelize.define('tokens', {

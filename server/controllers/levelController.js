@@ -5,15 +5,15 @@ const randomiser = require('randomstring')
 
 class levelController{
     async createLevel(req, res, next){
-        const {name, url} = req.body
-        if (!name || !url){
+        const {name, port} = req.body
+        if (!name || !port){
             return next(ApiError.badReques('Название теста или его URL не указаны.'))
         }
         const candidate = await Levels.findOne({where:{name}})
         if (candidate){
             return next(ApiError.badReques('Тест с таким названием уже существует.'))
         }
-        let level = await Levels.create({name, url})
+        let level = await Levels.create({name, port})
         return res.json({message: level})
     }
 
@@ -21,7 +21,7 @@ class levelController{
         const {userId, levelId} = req.body
         const candidateUser = await User.findOne({where: userId})
         const candidateLevel = await Levels.findOne({where: levelId})
-        if (candidateLevel || candidateUser){
+        if (!candidateLevel || !candidateUser){
             return next(ApiError.badReques('Указанного пользователя или уровня не существует.'))
         }
         const token = randomiser.generate({length: 12})
@@ -30,7 +30,9 @@ class levelController{
     }
 
     async getAllLevels(req, res, next){
-        const levels = await Levels.findAll()
-        return res.json({message: levels})
+        let levels = await Levels.findAll()
+        return res.json(levels)
     }
 }
+
+module.exports = new levelController()
