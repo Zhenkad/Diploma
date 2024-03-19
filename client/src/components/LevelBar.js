@@ -9,7 +9,7 @@ const LevelBar = observer(() => {
     return (
         <Row className="d-flex">
             {level.levels.map(level =>
-                < LevelItem key={level.id} level={level}/>
+                <LevelItem key={level.id} level={level}/>
             )}
         </Row>
     );
