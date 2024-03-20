@@ -32,6 +32,12 @@ class levelController{
         let levels = await Levels.findAll()
         return res.json(levels)
     }
+
+    async getOneTokenForUser(req, res, next){
+        const {userId, levelId} = req.body
+        const token = await Tokens.findOne({attributes: ['tokenStatus'], where: {userId: userId, levelId: levelId}})
+        return res.json(token)
+    }
 }
 
 module.exports = new levelController()

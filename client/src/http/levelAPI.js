@@ -1,3 +1,4 @@
+
 import {$authHost, $host} from "./index";
 import { jwtDecode } from "jwt-decode";
 
@@ -16,6 +17,12 @@ export const createToken = async (userId, LevelId) => {
 
 export const fetchLevels = async () => {
     const {data} = await $host.get('api/levels')
+    return data
+}
+
+
+export const getOneTokenForUser = async (userId, levelId) => {
+    const {data} = await $host.get('api/getonetokenforuser', {userId, levelId})
     return data
 }
 

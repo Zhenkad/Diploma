@@ -5,17 +5,20 @@ import Button from "react-bootstrap/Button";
 import {Context} from "../index";
 import {useHistory} from 'react-router-dom'
 import {LOGIN_ROUTE} from "../utils/consts";
+import { getOneTokenForUser } from '../http/levelAPI';
 
 const LevelItem = ({level}) => {
     const {user} = useContext(Context)
     const navigate = useHistory()
+    const tokenStatus = getOneTokenForUser(user._user.id, level.id)
+    console.log(user._user.id, level.id)
     return (
         <Col xs={12} sm={6} md={4} lg={3} xl={2}>
             <Card className="my-3" border={"light"}>
                 <Image fluid
                        src={level.img ? level.img : "https://i.pinimg.com/originals/91/e0/4f/91e04f1dcac67b1ce312e40b8503b126.jpg"}/>
                 <div>{level.name}</div>
-                <Button className="mt-1 w-100" disabled={level.status} variant={"outline-dark"}
+                <Button className="mt-1 w-100" disabled={tokenStatus ? tokenStatus : false} variant={"outline-dark"}
                         onClick={user.isAuth ? () => window.open('http://localhost:' + level.port, '_blank')
                             :
                             () => navigate.push(LOGIN_ROUTE)}>

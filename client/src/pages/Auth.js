@@ -25,7 +25,7 @@ const Auth = observer(() => {
             } else {
                 data = await registration(user_name, password)
             }
-            user.setUser(user)
+            user.setUser(data)
             user.setIsAuth(true)
             navigation.push(MAINPAGE_ROUTE)
         } catch (e) {
