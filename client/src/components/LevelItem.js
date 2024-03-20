@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Col, Card} from 'react-bootstrap'
 import Image from 'react-bootstrap/Image'
 import Button from "react-bootstrap/Button";
@@ -9,16 +9,19 @@ import { getOneTokenForUser } from '../http/levelAPI';
 
 const LevelItem = ({level}) => {
     const {user} = useContext(Context)
+    const {token} = useContext(Context)
     const navigate = useHistory()
-    const tokenStatus = getOneTokenForUser(user._user.id, level.id)
-    console.log(user._user.id, level.id)
+    const tokenStatus = getOneTokenForUser(JSON.stringify(user._user.id), JSON.stringify(level.id))
+    
+    console.log(tokenStatus)
+
     return (
         <Col xs={12} sm={6} md={4} lg={3} xl={2}>
             <Card className="my-3" border={"light"}>
                 <Image fluid
                        src={level.img ? level.img : "https://i.pinimg.com/originals/91/e0/4f/91e04f1dcac67b1ce312e40b8503b126.jpg"}/>
                 <div>{level.name}</div>
-                <Button className="mt-1 w-100" disabled={tokenStatus ? tokenStatus : false} variant={"outline-dark"}
+                <Button className="mt-1 w-100" disabled={token} variant={"outline-dark"}
                         onClick={user.isAuth ? () => window.open('http://localhost:' + level.port, '_blank')
                             :
                             () => navigate.push(LOGIN_ROUTE)}>

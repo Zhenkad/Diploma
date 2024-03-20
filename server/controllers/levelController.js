@@ -1,6 +1,8 @@
+const db = require('../db')
 const ApiError = require('../error/ApiError')
 const {User, Levels, Tokens} = require('../models/models')
 const randomiser = require('randomstring')
+const { QueryTypes } = require('sequelize');
 
 
 class levelController{
@@ -29,13 +31,13 @@ class levelController{
     }
 
     async getAllLevels(req, res, next){
-        let levels = await Levels.findAll()
+        let levels = await Levels.findAll({attributes: ['id', 'name', 'port', 'img']})
         return res.json(levels)
     }
 
     async getOneTokenForUser(req, res, next){
-        const {userId, levelId} = req.body
-        const token = await Tokens.findOne({attributes: ['tokenStatus'], where: {userId: userId, levelId: levelId}})
+        const {userId, levelId} = req.query
+        const token = await Tokens.findOne({attributes: ['tokenStatus'], where: {userId, levelId}})
         return res.json(token)
     }
 }
