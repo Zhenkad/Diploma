@@ -16,7 +16,7 @@ const NavBar = observer(() => {
         user.setUser({})
         user.setIsAuth(false)
         localStorage.clear()
-        window.location.href(LOGIN_ROUTE)
+        history.push(LOGIN_ROUTE)
     }
 
     return (

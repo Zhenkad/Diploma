@@ -3,15 +3,15 @@ import { Container, Form } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import {NavLink, useHistory, useLocation} from 'react-router-dom';
-import {REGISTRATION_ROUTE, LOGIN_ROUTE, MAINPAGE_ROUTE} from "../utils/consts";
+import {REGISTRATION_ROUTE, LOGIN_ROUTE} from "../utils/consts";
 import {login, registration} from "../http/userApi";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 
 
+
 const Auth = observer(() => {
     const {user} = useContext(Context)
-    const navigation = useHistory()
     const location = useLocation()
     const isLogin = location.pathname === LOGIN_ROUTE
     const [user_name, setUser_name] = useState('')
@@ -27,7 +27,7 @@ const Auth = observer(() => {
             }
             user.setUser(data)
             user.setIsAuth(true)
-            navigation.push(MAINPAGE_ROUTE)
+            window.location.replace('/')
         } catch (e) {
             alert(e.response.data.message)
         }
