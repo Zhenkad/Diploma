@@ -2,12 +2,14 @@ const db = require('../db')
 const ApiError = require('../error/ApiError')
 const {User, Levels, Tokens} = require('../models/models')
 const randomiser = require('randomstring')
-const { QueryTypes } = require('sequelize');
+const uuid = require('uuid')
+const path = require('path')
 
 
 class levelController{
     async createLevel(req, res, next){
-        const {name, port} = req.body
+        try{
+            const {name, port} = req.body
         if (!name || !port){
             return next(ApiError.badReques('Название теста или его URL не указаны.'))
         }
@@ -15,8 +17,14 @@ class levelController{
         if (candidate){
             return next(ApiError.badReques('Тест с таким названием уже существует.'))
         }
-        let level = await Levels.create({name, port})
-        return res.json({message: level})
+        const {img} = req.files
+        let filename = uuid.v4() + ".jpg"
+        img.mv(path.resolve(__dirname, '..', 'static', filename))
+        const level = await Levels.create({name, port, img: filename})
+        return res.json({level})
+        } catch(e){
+            next(ApiError.badReques(e.message))
+        }
     }
 
     async createTokens(req, res, next){
