@@ -19,15 +19,21 @@ class levelController{
         return res.json({message: level})
     }
 
-    async createToken(req, res, next){
-        const {userId, levelId} = req.body
-        const candidate = await Tokens.findOne({where: {userId, levelId}})
+    async createTokens(req, res, next){
+        const {userId} = req.body
+        const candidate = await Tokens.findOne({where: {userId}})
         if (candidate){
             return next(ApiError.badReques('Ключ для этого пользователя уже существует.'))
         }
-        const token = randomiser.generate({length: 12})
-        let newToken = await Tokens.create({levelId, userId, token})
-        return res.json({message: newToken})
+        let levelsId = await Levels.findAll({attributes: ['id']})
+        for(let i = 0; i < levelsId.length; i++) {
+            let obj = levelsId[i];
+            const levelId = JSON.stringify(obj.id)
+            const token = randomiser.generate({length: 24})
+            console.log(levelId)
+            const newTokens = Tokens.create({levelId, userId, token})
+        }
+        return res.json(true)
     }
 
     async getAllLevels(req, res, next){

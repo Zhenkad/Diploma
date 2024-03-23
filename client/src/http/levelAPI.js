@@ -7,10 +7,8 @@ export const createLevel = async (name, port) => {
     return jwtDecode(data.token)
 }
 
-export const createToken = async (userId, LevelId) => {
-    const {data} = await $host.post('api/createtoken', {userId, LevelId})
-    localStorage.setItem('token', data.token)
-    return jwtDecode(data.token)
+export const createTokens = async (userId) => {
+    return await $host.post('api/createtokens', {userId})
 }
 
 
