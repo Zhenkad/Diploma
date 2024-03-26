@@ -38,7 +38,6 @@ class levelController{
             let obj = levelsId[i];
             const levelId = JSON.stringify(obj.id)
             const token = randomiser.generate({length: 24})
-            console.log(levelId)
             const newTokens = Tokens.create({levelId, userId, token})
         }
         return res.json(true)
@@ -47,6 +46,18 @@ class levelController{
     async getAllLevels(req, res, next){
         let levels = await Levels.findAll({attributes: ['id', 'name', 'port', 'img']})
         return res.json(levels)
+    }
+
+    async createTokensForAllUsers(req, res, next){
+        const {levelId} = req.body
+        let usersId = await User.findAll({attributes: ['id']})
+        for(let i = 0; i < usersId.length; i++){
+            let obj = usersId[i]
+            const userId = JSON.stringify(obj.id)
+            const token = randomiser.generate({length: 24})
+            const tokens = await Tokens.create(levelId, userId, token)
+        }
+        return res.json(true)
     }
 
     async getOneTokenForUser(req, res, next){
