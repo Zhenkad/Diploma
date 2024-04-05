@@ -16,8 +16,8 @@ router.delete('/deleteuser', checkRole('ADMIN'), userController.deleteUser)
 
 //Level routes
 router.post('/createlevel', checkRole('ADMIN'), levelController.createLevel)
-router.post('/createtokens',  levelController.createTokens)
-router.post('/createtokensforallusers', levelController.createTokensForAllUsers)
+router.post('/createtokens',  levelController.createTokensForOneUser)
+router.post('/createtokensforallusers', checkRole('ADMIN'), levelController.createTokensForAllUsers)
 router.get('/levels', levelController.getAllLevels)
 router.get('/getonetokenforuser', levelController.getOneTokenForUser)
 
