@@ -3,21 +3,20 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import {Form} from "react-bootstrap";
 import {observer} from "mobx-react-lite"
-import { createLevel, createTokensForAllUsers } from '../../http/levelAPI';
+import { createLevel } from '../../http/levelAPI';
 
 const CreateLevel = observer(({show, onHide}) => {
     const [name, setName] = useState('')
-    const [port, setPort] = useState('')
+    const [url, setUrl] = useState('')
     const [file, setFile] = useState(null)
     const selectFile = e => {
         setFile(e.target.files[0])
     }
 
     const  addLevel = async () => {
-        let newLevel
         const formData = new FormData()
         formData.append('name', name)
-        formData.append('port', port)
+        formData.append('url', url)
         formData.append('img', file)
         await createLevel(formData).then(data => onHide())
     }
@@ -37,7 +36,7 @@ const CreateLevel = observer(({show, onHide}) => {
             <Modal.Body>
                 <Form>
                     <Form.Control value={name} onChange={e => setName(e.target.value)} className="mt-3 mb-3" placeholder={"Введите название испытания"}/>
-                    <Form.Control value={port} onChange={e => setPort(e.target.value)} className="mt-3 mb-3" placeholder={"Введите порт испытания"}/>
+                    <Form.Control value={url} onChange={e => setUrl(e.target.value)} className="mt-3 mb-3" placeholder={"Введите порт испытания"}/>
                     <Form.Control className="mt-3 mb-3" type="file" onChange={selectFile}/>
                 </Form>
             </Modal.Body>

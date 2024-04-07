@@ -6,6 +6,8 @@ import LevelItem from './LevelItem';
 
 const LevelBar = observer(() => {
     const {level} = useContext(Context)
+    console.log(level)
+    
     return (
         <Row className="d-flex">
             {level.levels.map(level =>

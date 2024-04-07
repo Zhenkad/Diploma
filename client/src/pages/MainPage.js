@@ -8,9 +8,10 @@ import {observer} from "mobx-react-lite";
 
 const MainPage = observer(() => {
     const {level} = useContext(Context)
+    const {user} = useContext(Context)
 
     useEffect(() => {
-        fetchLevels().then(data => level.setLevels(data))
+        fetchLevels(user._user.id).then(data => level.setLevels(data))
     }, [])
 
     return (

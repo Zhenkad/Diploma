@@ -17,11 +17,11 @@ const LevelItem = ({level}) => {
                 <Image style={{width: "auto"}} height={300}
                        src={level.img ? process.env.REACT_APP_API_URL + level.img : "https://i.pinimg.com/originals/91/e0/4f/91e04f1dcac67b1ce312e40b8503b126.jpg"}/>
                 <div>{level.name}</div>
-                <Button className="mt-1 w-100" disabled={false} variant={"outline-dark"}
-                        onClick={user.isAuth ? () => window.open('http://localhost:' + level.port, '_blank')
+                <Button className="mt-1 w-100" disabled={level.tokenStatus} variant={level.tokenStatus === 0 ? "outline-dark" : "outline-success"}
+                        onClick={user.isAuth ? () => window.open('http://localhost/' + level.url, '_blank')
                             :
                             () => navigate.push(LOGIN_ROUTE)}>
-                    {level.status ? 'Выполнено' : 'Приступить'}
+                    {level.tokenStatus === 1 ? 'Выполнено' : 'Приступить'}
                 </Button>
             </Card>
         </Col>

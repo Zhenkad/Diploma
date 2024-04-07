@@ -15,8 +15,8 @@ export const createTokens = async (userId) => {
     return await $host.post('api/createtokens', {userId})
 }
 
-export const fetchLevels = async () => {
-    const {data} = await $host.get('api/levels')
+export const fetchLevels = async (userId) => {
+    const {data} = await $host.get('api/levels', {params: {userId}})
     return data
 }
 
