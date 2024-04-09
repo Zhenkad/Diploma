@@ -4,7 +4,7 @@ const { User, Levels, Tokens } = require('../models/models')
 const randomiser = require('randomstring')
 const uuid = require('uuid')
 const path = require('path')
-
+var moment = require('moment')
 
 class levelController {
     async createLevel(req, res, next) {
@@ -61,10 +61,18 @@ class levelController {
         return res.json(true)
     }
 
-    async getOneTokenForUser(req, res, next) {
-        const { userId, levelId } = req.query
-        const token = await Tokens.findOne({ attributes: ['tokenStatus'], where: { userId, levelId } })
-        return res.json(token)
+    async checkToken(req, res, next) {
+        const { levelId, token, userId } = req.body
+        const candidate = await Tokens.findOne({ attributes: ['token'], where: { userId, levelId, token } })
+        if (!candidate){
+            return next(ApiError.badReques('Не верный ключ'))
+        }
+        let dateTime = moment().format('YYYY-MM-DD HH:mm:ss')
+        const some = await Tokens.update({
+            tokenStatus: 1,
+            passDate: dateTime
+        }, {where: {userId, levelId}})
+        return res.json({message: 'Задание выполнено'})
     }
 }
 

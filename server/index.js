@@ -1,4 +1,5 @@
 require('dotenv').config()
+var moment = require('moment')
 const express = require('express')
 const sequelize = require('./db')
 const models = require('./models/models')
@@ -24,6 +25,8 @@ const start = async() => {
         await sequelize.authenticate()
         await sequelize.sync()
         app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))
+        let dateTime = moment().format("YYYY-MM-DD HH:mm:ss")
+        console.log(dateTime)
     } catch(e){
         console.log(e)
     }

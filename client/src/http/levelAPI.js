@@ -11,8 +11,13 @@ export const createTokensForAllUsers = async (levelId) => {
     return await $authHost.post('api/createtokensforallusers', {levelId})
 }
 
-export const createTokens = async (userId) => {
+export const createTokensForAllLevels = async (userId) => {
     return await $host.post('api/createtokens', {userId})
+}
+
+export const passLevel = async (userId, levelId, token) => {
+    const {data} = await $authHost.post('api/checktoken', {userId, levelId, token})
+    return data
 }
 
 export const fetchLevels = async (userId) => {

@@ -25,10 +25,8 @@ const LevelItem = ({ level }) => {
                         () => navigate.push(LOGIN_ROUTE)}>
                     {level.tokenStatus === 1 ? 'Выполнено' : 'Приступить'}
                 </Button>
-                <Container>
-                    <Button className="mt-1 w-100" hidden={level.tokenStatus} variant="outline-dark" onClick={() => setTokenVisible(true)}>Ввести ключ</Button>
-                    <CheckToken show={tokenVisible} onHide={() => setTokenVisible(false)} />
-                </Container>
+                <Button className="mt-1 w-100" hidden={level.tokenStatus} variant="outline-dark" onClick={() => setTokenVisible(true)}>Ввести ключ</Button>
+                <CheckToken userId={user._user.id} levelId={level.id} show={tokenVisible} onHide={() => setTokenVisible(false)} />
             </Card>
         </Col>
     );

@@ -1,10 +1,22 @@
 import React, { useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { Form, FormControl, Modal, ModalBody } from 'react-bootstrap';
+import { FormControl, Modal, Button } from 'react-bootstrap';
+import { passLevel } from '../../http/levelAPI';
 
-const CheckToken = observer(({ show, onHide }) => {
-    const [token, setToken] = useState('')
+const CheckToken = observer(({ show, onHide, levelId, userId }) => {
+    const [token, setToken] = useState('');
 
+    const checkToken = async () => {
+        console.log(token)
+        console.log(levelId)
+        console.log(userId)
+        try {
+            await passLevel(userId, levelId, token).then(alert("Задание выполнено")).then(window.location.reload())
+        }
+        catch (e) {
+            alert(e.response.data.message)
+        }
+    }
     return (
         <Modal
             show={show}
@@ -18,12 +30,10 @@ const CheckToken = observer(({ show, onHide }) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form>
-                    <FormControl value={token} onChange={e => setToken(e.target.value)} className="mt-3 mb-3" placeholder={"Введите ключ (строка из 12 символов)"}/>
-                </Form>
+                <FormControl value={token} onChange={e => setToken(e.target.value)} className="mt-3 mb-3" placeholder={"Введите ключ (строка из 12 символов)"} />
             </Modal.Body>
             <Modal.Footer>
-                <Button variant={"success"} onClick={onHide}>Отправить</Button>
+                <Button variant={"success"} onClick={checkToken}>Отправить</Button>
                 <Button variant={"danger"} onClick={onHide}>Закрыть</Button>
             </Modal.Footer>
         </Modal>

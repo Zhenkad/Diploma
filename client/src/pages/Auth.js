@@ -7,7 +7,7 @@ import {REGISTRATION_ROUTE, LOGIN_ROUTE} from "../utils/consts";
 import {login, registration} from "../http/userApi";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
-import { createTokens } from '../http/levelAPI';
+import { createTokensForAllLevels} from '../http/levelAPI';
 
 
 
@@ -25,7 +25,7 @@ const Auth = observer(() => {
                 data = await login(user_name, password)
             } else {
                 data = await registration(user_name, password)
-                createTokens(data.id)
+                createTokensForAllLevels(data.id)
             }
             user.setUser(data)
             user.setIsAuth(true)
