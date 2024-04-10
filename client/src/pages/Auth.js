@@ -1,25 +1,32 @@
-import React, {useContext, useState} from 'react'
+import React, { useContext, useState } from 'react'
 import { Container, Form } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import {NavLink, useLocation} from 'react-router-dom';
-import {REGISTRATION_ROUTE, LOGIN_ROUTE} from "../utils/consts";
-import {login, registration} from "../http/userApi";
-import {observer} from "mobx-react-lite";
-import {Context} from "../index";
-import { createTokensForAllLevels} from '../http/levelAPI';
+import { NavLink, useLocation } from 'react-router-dom';
+import { REGISTRATION_ROUTE, LOGIN_ROUTE } from "../utils/consts";
+import { login, registration } from "../http/userApi";
+import { observer } from "mobx-react-lite";
+import { Context } from "../index";
+import { createTokensForAllLevels } from '../http/levelAPI';
+import { useForm } from 'react-hook-form';
 
 
 
 const Auth = observer(() => {
-    const {user} = useContext(Context)
+    const { user } = useContext(Context)
     const location = useLocation()
     const isLogin = location.pathname === LOGIN_ROUTE
     const [user_name, setUser_name] = useState('')
     const [password, setPassword] = useState('')
 
+    const {
+        register,
+        formState: { errors },
+        handleSubmit
+    } = useForm()
+
     const click = async () => {
-        try{
+        try {
             let data;
             if (isLogin) {
                 data = await login(user_name, password)
@@ -34,14 +41,25 @@ const Auth = observer(() => {
             alert(e.response.data.message)
         }
     }
-
+    
     return (
         <Container className="d-flex justify-content-center align-items-center" style={{ height: window.innerHeight - 54 }}>
             <Card style={{ width: 600 }} className="p-5">
                 <h2 className="m-auto">{isLogin ? 'Авторизация' : 'Регистрация'}</h2>
                 <Form className="d-flex flex-column">
-                    <Form.Control className="mt-3" placeholder="Имя пользователя..." value={user_name} onChange={e => setUser_name(e.target.value)}/>
-                    <Form.Control className="mt-3" placeholder="Пароль..." type="password" value={password} onChange={e => setPassword(e.target.value)}/>
+
+                    <Form.Control {...register("userName", {
+                        required: "Поле обязательно к заполнению",
+                    }
+                    )} className="mt-3" placeholder="Имя пользователя..." value={user_name} onChange={e => setUser_name(e.target.value)} />
+                    <div>{errors?.userName && <p style={{color: "red"}}>{errors?.userName?.message}</p>}</div>
+
+                    <Form.Control {...register("password", {
+                        required: "Поле обязательно к заполнению",
+                    }
+                    )} className="mt-3" placeholder="Пароль..." type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                    <div>{errors?.password && <p style={{color: "red"}}>{errors?.password?.message}</p>}</div>
+
                     <div className="d-flex justify-content-between mt-3">
                         {isLogin ?
                             <div>
