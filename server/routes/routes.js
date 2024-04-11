@@ -9,7 +9,7 @@ const checkRole = require('../middleware/checkRoleMiddleware')
 //User routes
 router.post('/registration', userController.registration)
 router.post('/login', userController.login)
-router.get('/users', userController.getAll)
+router.get('/users', checkRole('ADMIN'), userController.getAll)
 router.get('/auth', authMiddleware, userController.check)
 router.delete('/deleteuser', checkRole('ADMIN'), userController.deleteUser)
 

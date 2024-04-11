@@ -13,6 +13,10 @@ export const login = async (user_name, password) => {
     return jwtDecode(data.token)
 }
 
+export const fetchUsers = async () => {
+    return await $authHost.get('api/users')
+}
+
 export const check = async () => {
     const {data} = await $authHost.get('api/auth')
     localStorage.setItem('token', data.token)
