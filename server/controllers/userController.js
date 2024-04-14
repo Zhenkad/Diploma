@@ -89,7 +89,7 @@ class UserController{
      * @returns
      */
     async getAll(req, res){
-        const users = await User.findAll({attributes: ['id', 'user_name']})
+        const users = await User.findAll({attributes: ['id', 'user_name', 'role']})
         return res.json(users)
     }
 }

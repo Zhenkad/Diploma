@@ -7,8 +7,8 @@ import UserBar from "../components/UserBar";
 const Admin = () => {
     const [levelVisible, setLevelVisible] = useState(false)
     return (
-        <Container>
-            <Button variant={"outline-dark"} className="mt-3 p-3" onClick={() => setLevelVisible(true)}>Добавить испытание</Button>
+        <Container className='my-4'>
+            <Button variant={"outline-dark"} className="mb-3" onClick={() => setLevelVisible(true)}>Добавить испытание</Button>
             <CreateLevel show={levelVisible} onHide={() => setLevelVisible(false)}/>
             <UserBar/>
         </Container>

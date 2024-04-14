@@ -1,24 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { fetchUsers } from '../http/userApi';
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
 import { observer } from "mobx-react-lite";
+import { Spinner } from "react-bootstrap";
+import 'datatables.net-bs5'
+import $, { data } from 'jquery'
 
 const UserBar = observer(() => {
 
-    const [users, setUsers] = useState([]);
+    var [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        fetchUsers().then((data) => setUsers(data.data))
-    }, [])
+        setTimeout(() => {
+            fetchUsers().then((data) => setUsers(data.data)).finally(() => setLoading(false))
+        }, 1000)
+    }, []);
+
+    if (loading) {
+        return (
+            <div className='position-absolute top-50 start-50 translate-middle'>
+                <Spinner animation={"grow"} role='status' />
+            </div>
+        )
+    }
+
     console.log(users)
+
+    $('#example').DataTable({
+        data: users,
+        columns: [
+            { data: 'id' },
+            { data: 'user_name' },
+            { data: 'role' },
+        ],
+        retrieve: true
+    });
+
     return (
-        <DataTable value={users} >
-            {users.map((user) => (
-                <Column key={user.id} field={user.user_name} header={user.id} />
-            ))}
-        </DataTable>
-    );
+        <table id="example" className="table display w-100">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя Пользователя</th>
+                    <th>Роль</th>
+                </tr>
+            </thead>
+        </table>
+    )
 });
 
 export default UserBar;
