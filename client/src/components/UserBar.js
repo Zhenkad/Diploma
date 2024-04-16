@@ -32,6 +32,10 @@ const UserBar = observer(() => {
             { data: 'id' },
             { data: 'user_name' },
             { data: 'role' },
+            {
+                data: 'edit',
+                defaultContent: '<Button>'
+            }
         ],
         retrieve: true
     });
@@ -43,6 +47,7 @@ const UserBar = observer(() => {
                     <th>ID</th>
                     <th>Имя Пользователя</th>
                     <th>Роль</th>
+                    <th>Редактировать</th>
                 </tr>
             </thead>
         </table>
