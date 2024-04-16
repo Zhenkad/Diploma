@@ -43,6 +43,7 @@ const UserBar = observer(() => {
         ],
         retrieve: true
     });
+    table.draw()
 
     return (
         <table id="example" className="table display w-100">
