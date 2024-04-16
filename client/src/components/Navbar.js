@@ -7,6 +7,7 @@ import { observer } from 'mobx-react-lite'
 import { Context } from '../index';
 import { ADMIN_ROUTE, LOGIN_ROUTE } from '../utils/consts';
 import { useHistory } from "react-router-dom";
+import { IoLogOutSharp } from "react-icons/io5";
 
 const NavBar = observer(() => {
     const { user } = useContext(Context)
@@ -28,12 +29,13 @@ const NavBar = observer(() => {
                     {user.isAuth && user._user.role === 'ADMIN' ?
                         <Nav>
                             <Button variant={"outline-light"} onClick={() => history.push(ADMIN_ROUTE)}>Панель администратора</Button>
-                            <Button variant={"outline-light"} style={{ marginLeft: "10px" }} onClick={() => logOut()}>Выйти</Button>
+                            <Button variant={"outline-light"} style={{ marginLeft: "10px" }} onClick={() => logOut()}>{user._user.user_name} <IoLogOutSharp />
+</Button>
                         </Nav>
                         :
                         user.isAuth && user._user.role === 'USER' ?
                             <Nav>
-                                <Button variant={"outline-light"} style={{ marginLeft: "10px" }} onClick={() => logOut()}>Выйти</Button>
+                                <Button variant={"outline-light"} style={{ marginLeft: "10px" }} onClick={() => logOut()}><IoLogOutSharp /></Button>
                             </Nav>
                             :
                             <Nav>
