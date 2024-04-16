@@ -4,7 +4,6 @@ import { observer } from "mobx-react-lite";
 import { Spinner } from "react-bootstrap";
 import 'datatables.net-bs5'
 import $, { data } from 'jquery'
-import 'bootstrap-icons'
 
 const UserBar = observer(() => {
 
@@ -35,7 +34,12 @@ const UserBar = observer(() => {
             { data: 'role' },
             {
                 data: 'edit',
-                defaultContent: '<Button>'
+                render: function (data, type, row, meta) {
+                    return '<div class="d-inlin">\
+                    <button type="button" onclick="alert('+row.id+')" class="btn btn-primary btn-sm bi bi-pencil-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Редактировать"></button>\n' +
+                    '<button type="button" onclick="alert('+row.id+')" class="btn btn-danger btn-sm bi bi-trash3-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Удалить"></button>\n' +
+                    '</div>'
+                }
             }
         ],
         retrieve: true
@@ -48,7 +52,7 @@ const UserBar = observer(() => {
                     <th>ID</th>
                     <th>Имя Пользователя</th>
                     <th>Роль</th>
-                    <th>Редактировать</th>
+                    <th>Управление</th>
                 </tr>
             </thead>
         </table>
