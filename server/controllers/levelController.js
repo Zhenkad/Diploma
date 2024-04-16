@@ -65,7 +65,7 @@ class levelController {
         const { levelId, token, userId } = req.body
         const candidate = await Tokens.findOne({ attributes: ['token'], where: { userId, levelId, token } })
         if (!candidate){
-            return next(ApiError.badReques('Не верный ключ'))
+            return next(ApiError.badReques('Неверный ключ'))
         }
         let dateTime = moment().format('YYYY-MM-DD HH:mm:ss')
         const some = await Tokens.update({

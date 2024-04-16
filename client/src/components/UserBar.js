@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchUsers } from '../http/userApi';
 import { observer } from "mobx-react-lite";
 import { Spinner } from "react-bootstrap";
-import 'datatables.net-bs5'
-import $ from 'jquery'
+import DataTable from 'datatables.net-bs5'
 
 const UserBar = observer(() => {
 
@@ -26,7 +25,7 @@ const UserBar = observer(() => {
 
     console.log(users)
 
-    $('#example').DataTable({
+    let table = new DataTable('#example', {
         data: users,
         columns: [
             { data: 'id' },
