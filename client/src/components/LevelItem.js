@@ -16,7 +16,7 @@ const LevelItem = ({ level }) => {
     return (
         <Col xs={12} sm={6} md={4} lg={3} xl={2}>
             <Card className="my-3" border={"light"}>
-                <Image style={{ width: "auto" }} height={300}
+                <Image style={{ width: "auto" }} height={150}
                     src={level.img ? process.env.REACT_APP_API_URL + level.img : "https://i.pinimg.com/originals/91/e0/4f/91e04f1dcac67b1ce312e40b8503b126.jpg"} />
                 <div>{level.name}</div>
                 <Button className="mt-1 w-100" disabled={level.tokenStatus} variant={level.tokenStatus === 0 ? "outline-dark" : "outline-success"}
