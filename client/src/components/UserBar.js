@@ -3,7 +3,7 @@ import { fetchUsers } from '../http/userApi';
 import { observer } from "mobx-react-lite";
 import { Spinner } from "react-bootstrap";
 import 'datatables.net-bs5'
-import $, { data } from 'jquery'
+import $ from 'jquery'
 
 const UserBar = observer(() => {
 
