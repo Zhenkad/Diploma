@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchUsers } from '../http/userApi';
 import { observer } from "mobx-react-lite";
 import { Spinner } from "react-bootstrap";
-import DataTable from 'datatables.net-bs5'
+import DataTable from "react-data-table-component"
 
 const UserBar = observer(() => {
 
@@ -25,37 +25,30 @@ const UserBar = observer(() => {
 
     console.log(users)
 
-    let table = new DataTable('#example', {
-        data: users,
-        columns: [
-            { data: 'id' },
-            { data: 'user_name' },
-            { data: 'role' },
-            {
-                data: 'edit',
-                render: function (data, type, row, meta) {
-                    return '<div class="d-inlin">\n' +
-                        '<button type="button" onclick="alert(' + row.id + ')" class="btn btn-primary btn-sm bi bi-pencil-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Редактировать"></button>\n' +
-                        '<button type="button" onclick="alert(' + row.id + ')" class="btn btn-danger btn-sm bi bi-trash3-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Удалить"></button>\n' +
-                        '</div>'
-                }
-            }
-        ],
-        retrieve: true
-    });
-    table.draw()
+    const columns = [
+        { name: 'ID', selector: 'id', sortable: true },
+        { name: 'Имя пользователя', selector: 'user_name', sortable: true },
+        { name: 'Роль', selector: 'role', sortable: true },
+        {
+            name: 'Админитсрирование', cell: row =>
+                <div class="d-inlin">
+                    <button onClick={() => alert(row.id)} style={{marginRight: "5px"}} className="btn btn-primary btn-sm bi bi-pencil-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Редактировать"></button>
+                    <button onClick={() => alert(row.id)} style={{marginRight: "5px"}} className="btn btn-danger btn-sm bi bi-trash3-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Удалить"></button>
+                </div>
+        },
+    ]
 
     return (
-        <table id="example" className="table display w-100">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Имя Пользователя</th>
-                    <th>Роль</th>
-                    <th>Управление</th>
-                </tr>
-            </thead>
-        </table>
+
+        <DataTable
+            columns={columns}
+            data={users}
+            pagination
+            highlightOnHover
+            responsive
+            paginationPerPage={10}
+            paginationRowsPerPageOptions={[10, 20, 30, 40, 50]}
+        />
     )
 });
 
