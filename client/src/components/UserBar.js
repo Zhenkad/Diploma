@@ -35,10 +35,10 @@ const UserBar = observer(() => {
             {
                 data: 'edit',
                 render: function (data, type, row, meta) {
-                    return '<div class="d-inlin">\
-                    <button type="button" onclick="alert('+row.id+')" class="btn btn-primary btn-sm bi bi-pencil-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Редактировать"></button>\n' +
-                    '<button type="button" onclick="alert('+row.id+')" class="btn btn-danger btn-sm bi bi-trash3-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Удалить"></button>\n' +
-                    '</div>'
+                    return '<div class="d-inlin">\n' +
+                        '<button type="button" onclick="alert(' + row.id + ')" class="btn btn-primary btn-sm bi bi-pencil-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Редактировать"></button>\n' +
+                        '<button type="button" onclick="alert(' + row.id + ')" class="btn btn-danger btn-sm bi bi-trash3-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Удалить"></button>\n' +
+                        '</div>'
                 }
             }
         ],
