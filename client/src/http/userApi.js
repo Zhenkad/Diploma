@@ -17,6 +17,10 @@ export const fetchUsers = async () => {
     return await $authHost.get('api/users')
 }
 
+export const deleteUser = async (userId) => {
+    return await $authHost.post('api/deleteuser', {userId})
+}
+
 export const check = async () => {
     const {data} = await $authHost.get('api/auth')
     localStorage.setItem('token', data.token)

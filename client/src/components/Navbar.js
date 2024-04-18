@@ -35,7 +35,7 @@ const NavBar = observer(() => {
                         :
                         user.isAuth && user._user.role === 'USER' ?
                             <Nav>
-                                <Button variant={"outline-light"} style={{ marginLeft: "10px" }} onClick={() => logOut()}><IoLogOutSharp /></Button>
+                                <Button variant={"outline-light"} style={{ marginLeft: "10px" }} onClick={() => logOut()}>{user._user.user_name} <IoLogOutSharp /></Button>
                             </Nav>
                             :
                             <Nav>

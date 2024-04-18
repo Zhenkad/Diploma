@@ -3,11 +3,17 @@ import { fetchUsers } from '../http/userApi';
 import { observer } from "mobx-react-lite";
 import { Spinner } from "react-bootstrap";
 import DataTable from "react-data-table-component"
+import EditUser from './Modal/EditUser';
+import { Button } from 'react-bootstrap'
+import DeleteUser from './Modal/DeleteUser';
+import {Modal} from "react-bootstrap";
 
 const UserBar = observer(() => {
 
     var [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true)
+    const [editUserVisible, setEditUserVisible] = useState(false)
+    const [deleteUserVisible, setDeleteUserVisible] = useState(false)
 
     useEffect(() => {
         setTimeout(() => {
@@ -23,32 +29,35 @@ const UserBar = observer(() => {
         )
     }
 
-    console.log(users)
-
     const columns = [
         { name: 'ID', selector: 'id', sortable: true },
         { name: 'Имя пользователя', selector: 'user_name', sortable: true },
         { name: 'Роль', selector: 'role', sortable: true },
         {
-            name: 'Админитсрирование', cell: row =>
-                <div class="d-inlin">
-                    <button onClick={() => alert(row.id)} style={{marginRight: "5px"}} className="btn btn-primary btn-sm bi bi-pencil-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Редактировать"></button>
-                    <button onClick={() => alert(row.id)} style={{marginRight: "5px"}} className="btn btn-danger btn-sm bi bi-trash3-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Удалить"></button>
+            name: 'Админитсрирование', cell: (row) => {return(
+                <div className="d-inlin">
+                    <Button onClick={() => setEditUserVisible(true)} style={{ marginRight: "5px" }} variant={"primary"} className="btn-sm bi bi-pencil-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Редактировать"></Button>
+                    <EditUser userId={row.id} show={editUserVisible} onHide={() => setEditUserVisible(false)} />
+                    <Button onClick={() => openDelete(row.id)} style={{ marginRight: "5px" }} variant={"danger"} className="btn-sm bi bi-person-x-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Удалить"></Button>
+                    <DeleteUser userId={row.id} show={deleteUserVisible} onHide={() => setDeleteUserVisible(false)} />
                 </div>
+            )},
         },
     ]
-
+    
     return (
-
-        <DataTable
-            columns={columns}
-            data={users}
-            pagination
-            highlightOnHover
-            responsive
-            paginationPerPage={10}
-            paginationRowsPerPageOptions={[10, 20, 30, 40, 50]}
-        />
+        <>
+        
+            <DataTable
+                columns={columns}
+                data={users}
+                pagination
+                highlightOnHover
+                responsive
+                paginationPerPage={10}
+                paginationRowsPerPageOptions={[10, 20, 30, 40, 50]}
+            />
+        </>
     )
 });
 
