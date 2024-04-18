@@ -29,8 +29,7 @@ const NavBar = observer(() => {
                     {user.isAuth && user._user.role === 'ADMIN' ?
                         <Nav>
                             <Button variant={"outline-light"} onClick={() => history.push(ADMIN_ROUTE)}>Панель администратора</Button>
-                            <Button variant={"outline-light"} style={{ marginLeft: "10px" }} onClick={() => logOut()}>{user._user.user_name} <IoLogOutSharp />
-</Button>
+                            <Button variant={"outline-light"} style={{ marginLeft: "10px" }} onClick={() => logOut()}><IoLogOutSharp /></Button>
                         </Nav>
                         :
                         user.isAuth && user._user.role === 'USER' ?
