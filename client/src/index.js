@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import UserStore from './store/UserStore';
 import LevelStore from './store/LevelStore';
-import TokenStore from './store/TokenStore';
 
 export const Context = createContext(null)
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -11,7 +10,6 @@ root.render(
     <Context.Provider value={{
         user: new UserStore(),
         level: new LevelStore(),
-        token: new TokenStore(),
     }}>
         <React.StrictMode>
             <App/>

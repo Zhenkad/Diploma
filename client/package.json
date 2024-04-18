@@ -24,7 +24,7 @@
     "react-hook-form": "^7.51.2",
     "react-icons": "^5.1.0",
     "react-router-dom": "^5.3.4",
-    "react-router-mapping": "^3.0.4",
+    "react-router-mapping": "^1.0.4",
     "react-scripts": "^5.0.1",
     "styled-components": "^6.1.8",
     "web-vitals": "^2.1.4"
