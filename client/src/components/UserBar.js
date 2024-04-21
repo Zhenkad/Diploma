@@ -15,8 +15,6 @@ const UserBar = observer(() => {
     const [userStatView, setUserStatView] = useState(false)
     const [selectedData, setSelectedData] = useState(null)
     const [loading, setLoading] = useState(true)
-    const [editUserVisible, setEditUserVisible] = useState(false)
-    const [deleteUserVisible, setDeleteUserVisible] = useState(false)
 
     useEffect(() => {
         setTimeout(() => {
