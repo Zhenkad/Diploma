@@ -1,20 +1,9 @@
 import React, { useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { FormControl, Modal, Button } from 'react-bootstrap';
-import { useForm } from 'react-hook-form'
 
 const EditUser = observer(({ data, show, onHide }) => {
-    
-    /**
-    * Валидация с помощью React-hook-form
-    */
-    const {
-        register,
-        formState: {errors},
-        handleSubmit
-    } = useForm()
-
-    return (
+      return (
         <Modal
             show={show}
             onHide={onHide}
