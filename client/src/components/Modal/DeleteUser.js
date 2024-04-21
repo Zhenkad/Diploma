@@ -6,7 +6,7 @@ import { deleteUser } from '../../http/userApi';
 const DeleteUser = observer(({ data, show, onHide }) => {
 
     const userDelete = async () => {
-        if(!window.confirm('Вы действительно хотите удалить пользователя? \n Это действие нельзя отменить!')) return;
+        if(!window.confirm('Вы действительно хотите удалить пользователя?\n Это действие нельзя отменить!')) return;
         try {
             await deleteUser(data.id)
             alert("Пользователь удален")
