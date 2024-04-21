@@ -12,10 +12,10 @@ const CheckToken = observer(({ show, onHide, levelId, userId }) => {
     */
     const {
         register,
-        formState: {errors},
+        formState: { errors },
         handleSubmit
     } = useForm()
- 
+
     /**
      * Отправка токена на проверку
      */
@@ -43,7 +43,7 @@ const CheckToken = observer(({ show, onHide, levelId, userId }) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <FormControl {...register("token",{
+                <FormControl {...register("token", {
                     required: "Поле обязательно к заполнению",
                     minLength: {
                         value: 24,
@@ -54,13 +54,17 @@ const CheckToken = observer(({ show, onHide, levelId, userId }) => {
                         message: "Длина ключа должна быть 24 символа"
                     },
                     pattern: {
-                        value: /[A-Za-z1-9]/,
+                        value: /[A-Za-z1-9]{24}/,
                         message: "Ключ не должен содержать спец. символы"
                     }
                 }
-            )} value={token} onChange={e => setToken(e.target.value)} className="mt-3 mb-3" placeholder={"Введите ключ (строка из 24 символа)"} 
-            />
-            <div>{errors?.token && <p style={{color: "red"}}>{errors?.token?.message}</p>}</div>
+                )} value={token} onChange={e => setToken(e.target.value)} className="mt-3 mb-3" placeholder={"Введите ключ (строка из 24 символа)"}
+                />
+
+                {errors?.token && 
+                <div class="alert alert-danger" role="alert">
+                    {errors?.token?.message}
+                </div>}
             </Modal.Body>
             <Modal.Footer>
                 <Button variant={"success"} onClick={handleSubmit(checkToken)}>Отправить</Button>
