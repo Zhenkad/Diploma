@@ -46,12 +46,12 @@ class UserController{
      * @param {*} res
      */
     async deleteUser(req, res, next){
-        const {id} = req.body
-        if (!id){
+        var {userId} = req.body
+        if (!userId){
             return next(ApiError.badReques('Пользователь для удаления не указан'))
         }
         const result = await User.destroy({where: {
-            id: id
+            id: userId
           }})
         return res.json({message: result})
     }

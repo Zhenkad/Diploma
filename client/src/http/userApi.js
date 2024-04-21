@@ -18,7 +18,8 @@ export const fetchUsers = async () => {
 }
 
 export const deleteUser = async (userId) => {
-    return await $authHost.post('api/deleteuser', {userId})
+    console.log(userId)
+    return await $authHost.delete('api/deleteuser', {data: {userId: userId}})
 }
 
 export const check = async () => {

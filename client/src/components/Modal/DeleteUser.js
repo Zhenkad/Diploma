@@ -1,9 +1,21 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite'
 import { Modal, Button } from 'react-bootstrap';
+import { deleteUser } from '../../http/userApi';
 
 const DeleteUser = observer(({ data, show, onHide }) => {
-    
+
+    const userDelete = async () => {
+        try {
+            await deleteUser(data.id)
+            alert("Пользователь удален")
+            window.location.reload()
+        }
+        catch (e) {
+            alert(e.response.data.message)
+        }
+    }
+
     return (
         <Modal
             show={show}
@@ -20,8 +32,8 @@ const DeleteUser = observer(({ data, show, onHide }) => {
                 <p>Вы действительно хотите удалить пользователя {data.user_name}?</p>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant={"success"} onClick={onHide}>Отправить</Button>
-                <Button variant={"danger"} onClick={onHide}>Закрыть</Button>
+                <Button variant={"success"} onClick={userDelete}>Да</Button>
+                <Button variant={"danger"} onClick={onHide}>Нет</Button>
             </Modal.Footer>
         </Modal>
     );

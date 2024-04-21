@@ -17,12 +17,10 @@ const LevelItem = ({ level }) => {
         <Col xs={12} sm={6} md={4} lg={3} xl={2}>
             <Card className="my-3 shadow" border={"light"}>
                 <CardHeader className='p-0'>
-                    <Image className='w-100 rounded-top'
-                        src={level.img ? process.env.REACT_APP_API_URL + level.img : "https://i.pinimg.com/originals/91/e0/4f/91e04f1dcac67b1ce312e40b8503b126.jpg"} />
-
+                    <Image className="w-100 rounded-top"
+                        src={level.img ? process.env.REACT_APP_API_URL + level.img : "https://i.pinimg.com/originals/91/e0/4f/91e04f1dcac67b1ce312e40b8503b126.jpg"} style={{height: "125px"}}/>
                 </CardHeader>
                 <CardBody>
-
                     <div>{level.name}</div>
                     <Button className="mt-1 w-100" disabled={level.tokenStatus} variant={level.tokenStatus === 0 ? "outline-dark" : "outline-success"}
                         onClick={user.isAuth ? () => window.open('http://localhost/' + level.url, '_blank')
