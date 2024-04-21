@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { FormControl, Modal, Button } from 'react-bootstrap';
+import { Form , Modal, Button } from 'react-bootstrap';
 
 const EditUser = observer(({ data, show, onHide }) => {
-      return (
+
+    const [selectedRole, setSelectedRole] = useState(data.role);
+    const handleSelectChange = (e) => {
+        setSelectedRole(e.target.value);
+    };
+
+    return (
         <Modal
             show={show}
             onHide={onHide}
@@ -16,7 +22,11 @@ const EditUser = observer(({ data, show, onHide }) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <p>Data: {data.role}</p>
+                <p>Выбирите роль пользователя</p>
+                <Form.Select value={selectedRole} onChange={handleSelectChange}>
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="USER">USER</option>
+                </Form.Select>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant={"success"} onClick={onHide}>Отправить</Button>
