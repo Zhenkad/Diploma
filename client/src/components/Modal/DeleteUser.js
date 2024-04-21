@@ -29,7 +29,12 @@ const DeleteUser = observer(({ data, show, onHide }) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <p>Вы действительно хотите удалить пользователя {data.user_name}?</p>
+                <div>
+                    <p>Вы действительно хотите удалить пользователя {<b>{data.user_name}</b>}?</p>
+                </div>
+                <div class="alert alert-warning" role="alert">
+                    Это действие невозможно отменить.
+                </div>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant={"success"} onClick={userDelete}>Да</Button>
