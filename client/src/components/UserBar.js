@@ -29,6 +29,9 @@ const UserBar = observer(() => {
         )
     }
 
+
+    console.log(users)
+
     const handleOpenModal = (data, modalNumber) => {
         setSelectedData(data)
         if (modalNumber === 1) {
@@ -43,6 +46,7 @@ const UserBar = observer(() => {
     const columns = [
         { name: 'ID', selector: 'id', sortable: true },
         { name: 'Имя пользователя', selector: 'user_name', sortable: true },
+        { name: 'Номер телефона', selector: 'phone_number'},
         { name: 'Роль', selector: 'role', sortable: true },
         {
             name: 'Администрирование', cell: row => (

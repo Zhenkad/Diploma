@@ -27,16 +27,16 @@ class UserController{
      * @returns 
      */
     async registration(req, res, next){
-        const {user_name, password, role} = req.body
+        const {user_name, password, phone_number, role} = req.body
         if(!user_name || !password){
             return next(ApiError.badReques('Неверное имя пользователя или пароль'))
         }
-        const candidate = await User.findOne({where: {user_name}})
+        const candidate = await User.findOne({where: {user_name, phone_number}})
         if(candidate){
             return next(ApiError.badReques('Такой пользователь уже существует'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
-        const user = await User.create({user_name, password: hashPassword, role})
+        const user = await User.create({user_name, password: hashPassword, phone_number, role})
         const token = generateJWT(user.id, user.user_name, user.role)
         return res.json({token})
     }
@@ -89,7 +89,7 @@ class UserController{
      * @returns
      */
     async getAll(req, res){
-        const users = await User.findAll({attributes: ['id', 'user_name', 'role']})
+        const users = await User.findAll({attributes: ['id', 'user_name', 'phone_number', 'role']})
         return res.json(users)
     }
 }
