@@ -52,7 +52,7 @@ const CreateLevel = observer(({ show, onHide }) => {
                     <Form.Control {...register("levelUrl", {
                         required: "Поле обязательно к заполнению",
                     }
-                    )} value={url} onChange={e => setUrl(e.target.value)} className="mt-3 mb-3" placeholder={"Введите порт испытания"} />
+                    )} value={url} onChange={e => setUrl(e.target.value)} className="mt-3 mb-3" placeholder={"Введите url испытания"} />
                     <div>{errors?.levelUrl && <p style={{color: "red"}}>{errors?.levelUrl?.message}</p>}</div>
 
                     <Form.Control {...register("levelImg", {
