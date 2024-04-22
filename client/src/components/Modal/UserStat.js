@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer } from 'mobx-react-lite'
-import { FormControl, Modal, Button } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 
 const UserStat = observer(({ data, show, onHide }) => {
 
@@ -13,11 +13,11 @@ const UserStat = observer(({ data, show, onHide }) => {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Статистика пользователя
+                    Статистика пользователя {data.user_name}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <p>Data: {data.user_name}</p>
+                
             </Modal.Body>
             <Modal.Footer>
                 <Button variant={"success"} onClick={onHide}>Отправить</Button>

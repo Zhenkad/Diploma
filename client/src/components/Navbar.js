@@ -8,6 +8,7 @@ import { Context } from '../index';
 import { ADMIN_ROUTE, LOGIN_ROUTE } from '../utils/consts';
 import { useHistory } from "react-router-dom";
 import { IoLogOutSharp } from "react-icons/io5";
+import hackerImage from "./img/hacker.png"
 
 const NavBar = observer(() => {
     const { user } = useContext(Context)
@@ -23,7 +24,10 @@ const NavBar = observer(() => {
     return (
         <Navbar className="navbar navbar-dark bg-dark">
             <Container>
-                <Navbar.Brand href="/">Кибер полигон</Navbar.Brand>
+                <Navbar.Brand href="/">
+                    <img src={hackerImage} alt="" width="30" height="30" class="d-inline-block align-text-top mx-1"/>{' '}
+                    Кибер полигон
+                </Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     {user.isAuth && user._user.role === 'ADMIN' ?
