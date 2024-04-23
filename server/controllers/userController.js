@@ -77,6 +77,14 @@ class UserController{
         return res.json({token})
     }
 
+    async changeUserRole(req, res, next){
+        const {id, role} = req.body
+        await User.update({
+            role: role,
+        }, {where: {id}})
+        return res.json({message: true})
+    }
+
     async check(req, res, next){
         const token = generateJWT(req.user.id, req.user.user_name, req.user.role)
         return res.json({token})
@@ -89,7 +97,7 @@ class UserController{
      * @returns
      */
     async getAll(req, res){
-        const users = await User.findAll({attributes: ['id', 'user_name', 'phone_number', 'role']})
+        const users = await User.findAll()
         return res.json(users)
     }
 }

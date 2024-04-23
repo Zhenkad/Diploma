@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { Form , Modal, Button } from 'react-bootstrap';
+import { Form, Modal, Button, Container, Row, Col } from 'react-bootstrap';
+import { changeRole } from '../../http/userApi';
 
 const EditUser = observer(({ data, show, onHide }) => {
 
@@ -8,6 +9,34 @@ const EditUser = observer(({ data, show, onHide }) => {
     const handleSelectChange = (e) => {
         setSelectedRole(e.target.value);
     };
+
+    const changeUserRole = async () => {
+        await changeRole(data.id, selectedRole)
+        alert(`Роль пользователя ${data.user_name} изменена на ${selectedRole}`)
+        window.location.reload()
+    }
+
+    //Преобразование строки в Дату
+    const [dateStr, timeStr] = data.createdAt.split(' ');
+    //console.log(dateStr); // 06-15-2022
+    //console.log(timeStr); // 09:13:50
+    
+    const [year, month, day] = dateStr.split('-');
+    const [hours, minutes, seconds] = timeStr.split(':');
+    
+    //console.log(month); // 06
+    //console.log(day); // 15
+    //console.log(year); // 2022
+    
+    /*const date = new Date(
+      +year,
+      +month - 1,
+      +day,
+      +hours,
+      +minutes,
+      +seconds
+    );
+    */
 
     return (
         <Modal
@@ -22,14 +51,34 @@ const EditUser = observer(({ data, show, onHide }) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <p>Выбирите роль пользователя</p>
-                <Form.Select value={selectedRole} onChange={handleSelectChange}>
-                    <option value="ADMIN">ADMIN</option>
-                    <option value="USER">USER</option>
-                </Form.Select>
+                <Container>
+                    <Row>
+                        <Col xs={12} sm={6}>
+                            Имя пользователя
+                            <Form.Control type="text" placeholder={data.user_name} readOnly />
+                        </Col>
+                        <Col xs={12} sm={6}>
+                            Номер телефона
+                            <Form.Control type="text" placeholder={data.phone_number} readOnly />
+                        </Col>
+                    </Row>
+                    <Row className="my-2">
+                        <Col xs={12} sm={6}>
+                            Дата регистрации
+                            <Form.Control type="text" placeholder={`${day}.${month}.${year} ${hours}:${minutes}:${seconds}`} readOnly />
+                        </Col>
+                        <Col xs={12} sm={6}>
+                            Выбирите роль пользователя
+                            <Form.Select value={selectedRole} onChange={handleSelectChange}>
+                                <option value="ADMIN">ADMIN</option>
+                                <option value="USER">USER</option>
+                            </Form.Select>
+                        </Col>
+                    </Row>
+                </Container>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant={"success"} onClick={onHide}>Отправить</Button>
+                <Button variant={"success"} onClick={changeUserRole}>Отправить</Button>
                 <Button variant={"danger"} onClick={onHide}>Закрыть</Button>
             </Modal.Footer>
         </Modal>

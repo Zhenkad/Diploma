@@ -1,4 +1,4 @@
-const {Sequelize} = require('sequelize')
+const { Sequelize } = require('sequelize')
 
 module.exports = new Sequelize(
     process.env.DB_NAME,
@@ -7,6 +7,15 @@ module.exports = new Sequelize(
     {
         dialect: 'mysql',
         host: process.env.DB_HOST,
-        port: process.env.DB_PORT
+        port: process.env.DB_PORT,
+        dialectOptions: {
+            dateStrings: true,
+            typeCast: function (field, next) {
+                if (field.type === 'DATETIME') {
+                    return field.string()
+                }
+                return next()
+            }
+        }
     }
 )

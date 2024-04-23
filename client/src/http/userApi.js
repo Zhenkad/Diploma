@@ -17,6 +17,10 @@ export const fetchUsers = async () => {
     return await $authHost.get('api/users')
 }
 
+export const changeRole = async (id, role) => {
+    return await $authHost.post('api/changerole', {id, role})
+}
+
 export const deleteUser = async (userId) => {
     console.log(userId)
     return await $authHost.delete('api/deleteuser', {data: {userId: userId}})

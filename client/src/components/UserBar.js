@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchUsers } from '../http/userApi';
 import { observer } from "mobx-react-lite";
-import { Spinner } from "react-bootstrap";
+import { Spinner, Row, Col } from "react-bootstrap";
 import DataTable from "react-data-table-component"
 import EditUser from './Modal/EditUser';
 import DeleteUser from './Modal/DeleteUser';
@@ -29,9 +29,6 @@ const UserBar = observer(() => {
         )
     }
 
-
-    console.log(users)
-
     const handleOpenModal = (data, modalNumber) => {
         setSelectedData(data)
         if (modalNumber === 1) {
@@ -46,15 +43,21 @@ const UserBar = observer(() => {
     const columns = [
         { name: 'ID', selector: 'id', sortable: true },
         { name: 'Имя пользователя', selector: 'user_name', sortable: true },
-        { name: 'Номер телефона', selector: 'phone_number'},
+        { name: 'Номер телефона', selector: 'phone_number' },
         { name: 'Роль', selector: 'role', sortable: true },
         {
             name: 'Администрирование', cell: row => (
-                <div class="d-inlin">
-                    <button onClick={() => handleOpenModal(row, 1)} style={{ marginRight: "5px" }} className="btn btn-primary btn-sm bi bi-pencil-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Редактировать"></button>
-                    <button onClick={() => handleOpenModal(row, 2)} style={{ marginRight: "5px" }} className="btn btn-primary btn-sm bi bi-eye-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Статистика"></button>
-                    <button onClick={() => handleOpenModal(row, 3)} style={{ marginRight: "5px" }} className="btn btn-danger btn-sm bi bi-trash3-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Удалить"></button>
-                </div>
+                <Row>
+                    <Col xs={4} sm={4} md={4} lg={3} xl={3}>
+                        <button onClick={() => handleOpenModal(row, 1)} style={{ marginRight: "5px" }} className="btn btn-primary btn-sm bi bi-pencil-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Редактировать"></button>
+                    </Col>
+                    <Col xs={4} sm={4} md={4} lg={3} xl={3}>
+                        <button onClick={() => handleOpenModal(row, 2)} style={{ marginRight: "5px" }} className="btn btn-primary btn-sm bi bi-eye-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Статистика"></button>
+                    </Col>
+                    <Col xs={4} sm={4} md={4} lg={3} xl={3}>
+                        <button onClick={() => handleOpenModal(row, 3)} style={{ marginRight: "5px" }} className="btn btn-danger btn-sm bi bi-trash3-fill" data-bs-toggle="tooltip" data-bs-placement="top" title="Удалить"></button>
+                    </Col>
+                </Row>
             )},
     ]
     
