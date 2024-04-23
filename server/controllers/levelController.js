@@ -7,7 +7,6 @@ const path = require('path')
 var moment = require('moment')
 
 class levelController {
-
     async createLevel(req, res, next) {
         try {
             const { name, url } = req.body
@@ -69,7 +68,10 @@ class levelController {
             return next(ApiError.badReques('Неверный ключ'))
         }
         let dateTime = moment().format('YYYY-MM-DD HH:mm:ss')
-        const some = await Tokens.update({ tokenStatus: 1, passDate: dateTime }, {where: {userId, levelId}})
+        const some = await Tokens.update({
+            tokenStatus: 1,
+            passDate: dateTime
+        }, {where: {userId, levelId}})
         return res.json({message: 'Задание выполнено'})
     }
 }

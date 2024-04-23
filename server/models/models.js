@@ -7,12 +7,6 @@ const User = sequelize.define('users', {
     password: {type: DataTypes.STRING, allowNull: false},
     phone_number: {type: DataTypes.STRING, unique: true, allowNull: false},
     role: {type: DataTypes.STRING, defaultValue: "USER"}
-}, {
-    timestamps: true,
-    paranoid: true,
-    underscored: true,
-    freezeTableName: true,
-    timezone: 'SYSTEM' // Добавить эту строку
 })
 
 const Levels = sequelize.define('levels', {
@@ -20,12 +14,6 @@ const Levels = sequelize.define('levels', {
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     url: {type: DataTypes.STRING, unique: true, allowNull: false},
     img: {type: DataTypes.STRING, allowNull: true}
-}, {
-    timestamps: true,
-    paranoid: true,
-    underscored: true,
-    freezeTableName: true,
-    timezone: 'SYSTEM' // Добавить эту строку
 })
 
 const Tokens = sequelize.define('tokens', {
@@ -33,11 +21,6 @@ const Tokens = sequelize.define('tokens', {
     token: {type: DataTypes.STRING, unique: true, allowNull: false},
     tokenStatus: {type: DataTypes.BOOLEAN, defaultValue: 0},
     passDate: {type: DataTypes.DATE}
-}, {
-    timestamps: true,
-    paranoid: true,
-    freezeTableName: true,
-    timezone: 'SYSTEM' // Добавить эту строку
 })
 
 Levels.hasMany(Tokens)
