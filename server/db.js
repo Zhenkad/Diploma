@@ -16,6 +16,7 @@ module.exports = new Sequelize(
                 }
                 return next()
             }
-        }
+        },
+        timezone: '+10:00'
     }
 )
