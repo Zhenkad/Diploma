@@ -17,7 +17,7 @@ const UserStat = observer(({ data, show, onHide }) => {
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                
+                !!!
             </Modal.Body>
             <Modal.Footer>
                 <Button variant={"success"} onClick={onHide}>Отправить</Button>
