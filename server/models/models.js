@@ -9,6 +9,12 @@ const User = sequelize.define('users', {
     role: {type: DataTypes.STRING, defaultValue: "USER"}
 }, {
     timestamps: true,
+<<<<<<< HEAD
+=======
+    paranoid: true,
+    underscored: true,
+    freezeTableName: true,
+>>>>>>> fa7c04319f7d690b5e5fb4b529af085213b3588c
     timezone: 'SYSTEM' // Добавить эту строку
 } )
 
@@ -19,6 +25,12 @@ const Levels = sequelize.define('levels', {
     img: {type: DataTypes.STRING, allowNull: true}
 }, {
     timestamps: true,
+<<<<<<< HEAD
+=======
+    paranoid: true,
+    underscored: true,
+    freezeTableName: true,
+>>>>>>> fa7c04319f7d690b5e5fb4b529af085213b3588c
     timezone: 'SYSTEM' // Добавить эту строку
 })
 
@@ -29,6 +41,12 @@ const Tokens = sequelize.define('tokens', {
     passDate: {type: DataTypes.DATE}
 }, {
     timestamps: true,
+<<<<<<< HEAD
+=======
+    paranoid: true,
+    underscored: true,
+    freezeTableName: true,
+>>>>>>> fa7c04319f7d690b5e5fb4b529af085213b3588c
     timezone: 'SYSTEM' // Добавить эту строку
 })
 
