@@ -20,6 +20,8 @@ router.post('/createlevel', checkRole('ADMIN'), levelController.createLevel)
 router.post('/createtokens',  levelController.createTokensForOneUser)
 router.post('/createtokensforallusers', checkRole('ADMIN'), levelController.createTokensForAllUsers)
 router.post('/checktoken', authMiddleware, levelController.checkToken)
+router.post('/createStat', authMiddleware, levelController.createStat)
+router.post('/settimestart', authMiddleware, levelController.setTimeStart)
 router.get('/levels', levelController.getAllLevels)
 
 module.exports = router

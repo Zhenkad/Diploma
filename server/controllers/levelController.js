@@ -1,6 +1,6 @@
 const db = require('../db')
 const ApiError = require('../error/ApiError')
-const { User, Levels, Tokens } = require('../models/models')
+const { User, Levels, Tokens, Statistic } = require('../models/models')
 const randomiser = require('randomstring')
 const uuid = require('uuid')
 const path = require('path')
@@ -70,6 +70,23 @@ class levelController {
         }
         let dateTime = moment().format('YYYY-MM-DD HH:mm:ss')
         const some = await Tokens.update({ tokenStatus: 1, passDate: dateTime }, {where: {userId, levelId}})
+    }
+
+    async createStat(req, res, next) {
+        const {levelId} = req.body
+        let usersId = await User.findAll({ attributes: ['id'] })
+        for (let i = 0; i < usersId.length; i++) {
+            let obj = usersId[i]
+            const userId = JSON.stringify(obj.id)
+            const result = await Statistic.create({levelId, userId})
+        }
+        return res.json(true)
+    }
+
+    async setTimeStart (req, res, next) {
+        const {levelId, userId, currentTime} = req.body
+        await Statistic.update({timeStart: currentTime}, {where: {levelId, userId}})
+        return res.json(true)
     }
 }
 

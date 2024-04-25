@@ -23,11 +23,23 @@ const Tokens = sequelize.define('tokens', {
     passDate: {type: DataTypes.DATE}
 })
 
+const Statistic = sequelize.define('statistic', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    timeStart :{type: DataTypes.TIME, allowNull: true},
+    timePass: {type: DataTypes.TIME, allowNull: true},
+    timeForLevel: {type: DataTypes.TIME, allowNull: true},
+    averageTime: {type: DataTypes.TIME, allowNull: true}
+})
+
 Levels.hasMany(Tokens)
 User.hasMany(Tokens)
+
+Levels.hasMany(Statistic)
+User.hasMany(Statistic)
 
 module.exports = {
     User,
     Levels,
-    Tokens
+    Tokens,
+    Statistic
 }

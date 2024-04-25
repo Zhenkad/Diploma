@@ -6,12 +6,19 @@ import { Context } from "../index";
 import { useHistory } from 'react-router-dom'
 import { LOGIN_ROUTE } from "../utils/consts";
 import CheckToken from './Modal/CheckToken';
+import moment from 'moment'
+import { setCurrentTimeForStat } from '../http/levelAPI';
 
 
 const LevelItem = ({ level }) => {
     const { user } = useContext(Context)
     const navigate = useHistory()
     const [tokenVisible, setTokenVisible] = useState(false)
+
+    const setTimeStart = () => {
+        const currentTime = moment().format("HH:mm:ss")
+        setCurrentTimeForStat(level.id, user._user.id, currentTime)
+    }
 
     return (
         <Col xs={12} sm={6} md={4} lg={3} xl={2}>
@@ -23,7 +30,7 @@ const LevelItem = ({ level }) => {
                 <CardBody>
                     <div>{level.name}</div>
                     <Button className="mt-1 w-100" disabled={level.tokenStatus} variant={level.tokenStatus === 0 ? "outline-dark" : "outline-success"}
-                        onClick={user.isAuth ? () => window.open('http://localhost/' + level.url, '_blank')
+                        onClick={user.isAuth ? () => {window.open('http://localhost/' + level.url, '_blank'); setTimeStart()}
                             :
                             () => navigate.push(LOGIN_ROUTE)}>
                         {level.tokenStatus === 1 ? 'Выполнено' : 'Приступить'}
