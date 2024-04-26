@@ -9,7 +9,7 @@ import UserStat from './Modal/UserStat';
 
 const UserBar = observer(() => {
 
-    var [users, setUsers] = useState([]);
+    var [users, setUsers] = useState([])
     const [editUserView, setEditUserView] = useState(false)
     const [deleteUserView, setDeleteUserView] = useState(false)
     const [userStatView, setUserStatView] = useState(false)

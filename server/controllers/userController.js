@@ -1,5 +1,5 @@
 const ApiError = require('../error/ApiError')
-const {User} = require('../models/models')
+const {User, Tokens, Statistic} = require('../models/models')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 
@@ -50,9 +50,9 @@ class UserController{
         if (!userId){
             return next(ApiError.badReques('Пользователь для удаления не указан'))
         }
-        const result = await User.destroy({where: {
-            id: userId
-          }})
+        await Tokens.destroy({where: {userId: userId}})
+        await Statistic.destroy({where: {userId: userId}})
+        const result = await User.destroy({where: { id: userId }})
         return res.json({message: result})
     }
 

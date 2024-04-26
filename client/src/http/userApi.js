@@ -22,7 +22,6 @@ export const changeRole = async (id, role) => {
 }
 
 export const deleteUser = async (userId) => {
-    console.log(userId)
     return await $authHost.delete('api/deleteuser', {data: {userId: userId}})
 }
 
