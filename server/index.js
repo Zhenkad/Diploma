@@ -25,8 +25,8 @@ const start = async() => {
         await sequelize.authenticate()
         await sequelize.sync()
         app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))
-        let dateTime = moment().format("YYYY-MM-DD HH:mm:ss")
-        console.log(dateTime)
+        let dateTime = moment().format("HH:mm:ss DD.MM.YYYY")
+        console.log("Server started at " + dateTime)
     } catch(e){
         console.log(e)
     }
