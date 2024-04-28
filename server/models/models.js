@@ -19,7 +19,7 @@ const Levels = sequelize.define('levels', {
 const Tokens = sequelize.define('tokens', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     token: {type: DataTypes.STRING, unique: true, allowNull: false},
-    tokenStatus: {type: DataTypes.BOOLEAN, defaultValue: 0},
+    tokenStatus: {type: DataTypes.BOOLEAN, defaultValue: false},
     passDate: {type: DataTypes.DATE}
 })
 

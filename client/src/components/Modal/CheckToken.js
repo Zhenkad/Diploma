@@ -53,10 +53,6 @@ const CheckToken = observer(({ show, onHide, levelId, userId }) => {
                         value: 24,
                         message: "Длина ключа должна быть 24 символа"
                     },
-                    pattern: {
-                        value: /[A-Za-z1-9]{24}/,
-                        message: "Ключ не должен содержать спец. символы"
-                    }
                 }
                 )} value={token} onChange={e => setToken(e.target.value)} className="mt-3 mb-3" placeholder={"Введите ключ (строка из 24 символа)"}
                 />
