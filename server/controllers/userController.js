@@ -1,7 +1,7 @@
 const ApiError = require('../error/ApiError')
 const {User, Tokens, Statistic} = require('../models/models')
 const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 
 /**
  * Генерация JWT токена
@@ -31,8 +31,12 @@ class UserController{
         if(!user_name || !password){
             return next(ApiError.badReques('Неверное имя пользователя или пароль'))
         }
-        const candidate = await User.findOne({where: {user_name, phone_number}})
+        const candidate = await User.findOne({where: {user_name}})
         if(candidate){
+            return next(ApiError.badReques('Такой пользователь уже существует'))
+        }
+        const candidate2 = await User.findOne({where: {phone_number}})
+        if(candidate2){
             return next(ApiError.badReques('Такой пользователь уже существует'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
