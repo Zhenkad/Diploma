@@ -29,6 +29,7 @@ const start = async() => {
         console.log("Server started at " + dateTime)
     } catch(e){
         console.log(e)
+        start()
     }
 }
 

@@ -1,0 +1,110 @@
+apiVersion: v1
+kind: Service              
+metadata:
+  name: frontend-lb
+spec:
+  type: LoadBalancer       
+  ports:
+  - port: 80               
+    protocol: TCP          
+    targetPort: 3000         
+  selector:                
+    app: client           
+
+---
+
+apiVersion: v1
+kind: Service              
+metadata:
+  name: backend-lb
+spec:
+  type: LoadBalancer       
+  ports:
+  - port: 5000               
+    protocol: TCP          
+    targetPort: 5000         
+  selector:                
+    app: server           
+
+---
+
+apiVersion: v1
+kind: Service              
+metadata:
+  name: mysql
+spec:
+  type: LoadBalancer       
+  ports:
+  - port: 3306               
+    protocol: TCP          
+    targetPort: 3306         
+  selector:                
+    app: mysql           
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: admin
+        - name: MYSQL_DATABASE
+          value: diploma
+        ports:
+        - containerPort: 3306
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+spec:
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+      - name: client
+        image: zhenkad/client:latest
+        ports:
+        - containerPort: 3000
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server
+spec:
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+      - name: server
+        image: zhenkad/server:latest
+        ports:
+        - containerPort: 5000
