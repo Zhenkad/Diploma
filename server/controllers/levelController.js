@@ -135,6 +135,11 @@ class levelController {
                                         WHERE statistics.userId = ` + userId, { type: db.QueryTypes.SELECT })
         return res.json(statistic)
     }
+
+    async getLevelsForAdmin(req, res, next) {
+        const levels = await Levels.findAll()
+        return res.json(levels)
+    }
 }
 
 module.exports = new levelController()

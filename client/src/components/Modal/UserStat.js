@@ -18,7 +18,7 @@ const UserStat = observer(({ data, show, onHide }) => {
                 setCountOfPassedLevels(data1.data.filter((st) => st.tokenStatus === 1).length)
             }).finally(() => setLoading(false))
         }, 1000)
-    }, []);
+    });
     if (loading) {
         return (
             <div className='position-absolute top-50 start-50 translate-middle'>

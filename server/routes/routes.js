@@ -26,5 +26,6 @@ router.post('/settimestart', authMiddleware, levelController.setTimeStart)
 router.post('/timeforlevel', authMiddleware, levelController.countTimeForLevel)
 router.get('/getstatistic', checkRole('ADMIN'), levelController.getStatistic)
 router.get('/levels', levelController.getAllLevels)
+router.get('/getlevelsforadmin', checkRole('ADMIN'), levelController.getLevelsForAdmin)
 
 module.exports = router

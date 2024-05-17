@@ -43,3 +43,7 @@ export const setCurrentTimeForStat = async (levelId, userId, currentTime) => {
 export const getStatistic = async (userId) => {
     return await $authHost.get('api/getstatistic', {params: {userId}})
 }
+
+export const getLevelsForAdmin = async () => {
+    return await $authHost.get('api/getlevelsforadmin')
+}

@@ -12,7 +12,7 @@ const MainPage = observer(() => {
 
     useEffect(() => {
         fetchLevels(user._user.id).then(data => level.setLevels(data))
-    }, [])
+    })
 
     return (
         <Container className="my-5">

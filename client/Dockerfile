@@ -8,10 +8,10 @@ COPY package.json /usr/src/client
 RUN npm install
 RUN npm install --global serve
 
-COPY . /usr/src/client
+COPY . /usr/src/client/
 
 RUN npm run build
 
 EXPOSE 3000
 
-CMD ["serve", "-s", "build" ]
+CMD ["serve", "-s", "build"]
