@@ -5,16 +5,13 @@ import DataTable from "react-data-table-component";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Spinner, Row, Col, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { MdEdit } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
-import EditLevel from "./Modal/EditLevel";
 import DeleteLevel from "./Modal/DeleteLevel";
 
 
 const AdminLevelBar = observer(() => {
     const [levels, setLevels] = useState([])
     const [loading, setLoading] = useState(true)
-    const [editLevelView, setEditLevelView] = useState(false)
     const [deleteLevelView, setDeleteLevelView] = useState(false)
     const [selectedData, setSelectedData] = useState(null)
 
@@ -31,12 +28,6 @@ const AdminLevelBar = observer(() => {
         )
     }
 
-    const tooltipEdit = (
-        <Tooltip id="tooltipEdit">
-            Редактировать
-        </Tooltip>
-    );
-
     const tooltipDelete = (
         <Tooltip id="tooltipDelete">
             Удалить
@@ -46,8 +37,6 @@ const AdminLevelBar = observer(() => {
     const handleOpenModal = (data, modalNumber) => {
         setSelectedData(data)
         if (modalNumber === 1) {
-            setDeleteLevelView(true)
-        } else if (modalNumber === 2) {
             setDeleteLevelView(true)
         }
     }
@@ -60,13 +49,6 @@ const AdminLevelBar = observer(() => {
         {
             name: 'Администрирование', cell: row => (
                 <Row>
-                    <Col xs={4} sm={4} md={4} lg={3} xl={3}>
-                        <OverlayTrigger placement="top" overlay={tooltipEdit}>
-                            <Button variant="primary" onClick={() => handleOpenModal(row, 1)} style={{ marginRight: "50px" }} size="sm">
-                                <MdEdit />
-                            </Button>
-                        </OverlayTrigger>
-                    </Col>
                     <Col xs={4} sm={4} md={4} lg={3} xl={3}>
                         <OverlayTrigger placement="top" overlay={tooltipDelete}>
                             <Button variant="danger" onClick={() => handleOpenModal(row, 2)} style={{ marginRight: "5px" }} size="sm">
@@ -90,7 +72,6 @@ const AdminLevelBar = observer(() => {
                 paginationPerPage={10}
                 paginationRowsPerPageOptions={[10, 20, 30, 40, 50]}
             />
-            {editLevelView && <EditLevel data={selectedData} show={editLevelView} onHide={() => setEditLevelView(false)} />}
             {deleteLevelView && <DeleteLevel data={selectedData} show={deleteLevelView} onHide={() => setDeleteLevelView(false)} />}
         </div>
     );
