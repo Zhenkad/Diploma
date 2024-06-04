@@ -104,6 +104,21 @@ class UserController{
         const users = await User.findAll()
         return res.json(users)
     }
+
+    async resetPassword(req, res, next){
+        const {user_name, password} = req.body
+        const user = await User.findOne({where: {user_name}})
+        const comparePassword = bcrypt.compareSync(password, user.password)
+        if (comparePassword){
+            return next(ApiError.internal('Новый пароль не должен совпадать со старым'))
+        }
+        if (!user) {
+            return next(ApiError.internal('Пользователь не найден'))
+        }
+        const hashPassword = await bcrypt.hash(password, 5)
+        await User.update({password: hashPassword}, {where: {user_name}})
+        return res.json({message: true})
+    }
 }
 
 module.exports = new UserController()

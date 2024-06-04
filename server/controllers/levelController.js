@@ -140,6 +140,14 @@ class levelController {
         const levels = await Levels.findAll()
         return res.json(levels)
     }
+
+    async deleteLevel(req, res, next) {
+        const { id } = req.body
+        await Tokens.destroy({where: {levelId: id}})
+        await Statistic.destroy({where: {levelId: id}})
+        const result = await Levels.destroy({ where: { id } })
+        return res.json(result)
+    }
 }
 
 module.exports = new levelController()

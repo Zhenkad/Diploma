@@ -47,3 +47,7 @@ export const getStatistic = async (userId) => {
 export const getLevelsForAdmin = async () => {
     return await $authHost.get('api/getlevelsforadmin')
 }
+
+export const deleteLevel = async (levelId) => {
+    return await $authHost.delete('api/deletelevel', {data: {id: levelId}})
+}

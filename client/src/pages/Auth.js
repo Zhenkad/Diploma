@@ -3,7 +3,7 @@ import { Container, Form } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import { NavLink, useLocation } from 'react-router-dom';
-import { REGISTRATION_ROUTE, LOGIN_ROUTE } from "../utils/consts";
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, RESETPASSWORD_ROUTE} from "../utils/consts";
 import { login, registration } from "../http/userApi";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
@@ -99,8 +99,9 @@ const Auth = observer(() => {
                                 Есть аккаунт? <NavLink to={LOGIN_ROUTE}>Войдите!</NavLink>
                             </div>
                         }
-                        <Button className="align-self-end" onClick={handleSubmit(click)} variant={"outline-success"}>{isLogin ? 'Войти' : 'Регистрация'}</Button>
+                        <NavLink className="align-self-end" to={RESETPASSWORD_ROUTE}>Забыли пароль?</NavLink>
                     </div>
+                    <Button className="align-self-end w-100 my-3" onClick={handleSubmit(click)} variant={"outline-success"}>{isLogin ? 'Войти' : 'Регистрация'}</Button>
                 </Form>
             </Card>
         </Container>

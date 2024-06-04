@@ -30,3 +30,7 @@ export const check = async () => {
     localStorage.setItem('token', data.token)
     return jwtDecode(data.token)
 }
+
+export const resetPasswordRequest = async (user_name, password) => {
+    return await $host.post('api/resetpassword', {user_name, password})
+}

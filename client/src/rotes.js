@@ -1,7 +1,8 @@
-import {ADMIN_ROUTE, LOGIN_ROUTE, MAINPAGE_ROUTE, REGISTRATION_ROUTE} from "./utils/consts";
+import {ADMIN_ROUTE, LOGIN_ROUTE, MAINPAGE_ROUTE, REGISTRATION_ROUTE, RESETPASSWORD_ROUTE} from "./utils/consts";
 import MainPage from "./pages/MainPage";
 import Auth from "./pages/Auth";
 import Admin from "./pages/Admin";
+import ResetPassword from "./pages/ResetPassword";
 
 export const authRoutes = [
     {
@@ -23,4 +24,8 @@ export const publicRoutes = [
         path: REGISTRATION_ROUTE,
         Component: Auth
     },
+    {
+        path: RESETPASSWORD_ROUTE,
+        Component: ResetPassword
+    }
 ]
