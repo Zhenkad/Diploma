@@ -48,7 +48,7 @@ const AdminLevelBar = observer(() => {
                 <Row>
                     <Col xs={4} sm={4} md={4} lg={3} xl={3}>
                         <OverlayTrigger placement="top" overlay={tooltipDelete}>
-                            <Button variant="danger" onClick={() => handleOpenModal(row, 2)} style={{ marginRight: "5px" }} size="sm">
+                            <Button variant="danger" onClick={() => handleOpenModal(row, 1)} style={{ marginRight: "5px" }} size="sm">
                                 <MdDelete />
                             </Button>
                         </OverlayTrigger>

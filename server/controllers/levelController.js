@@ -46,7 +46,7 @@ class levelController {
 
     async getAllLevels(req, res, next) {
         const user = req.query
-        let levels = await db.query(`select levels.id, levels.name, levels.url, levels.img, tokens.tokenStatus from levels right join tokens on levels.id = tokens.levelId where tokens.userId = ` + user.userId, { type: db.QueryTypes.SELECT })
+        let levels = await db.query(`select levels.id, levels.name, levels.url, levels.img, tokens.tokenStatus, tokens.passDate from levels right join tokens on levels.id = tokens.levelId where tokens.userId = ` + user.userId, { type: db.QueryTypes.SELECT })
         return res.json(levels)
     }
 
