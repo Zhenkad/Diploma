@@ -11,16 +11,13 @@ import DeleteLevel from "./Modal/DeleteLevel";
 
 const AdminLevelBar = observer(() => {
     const [levels, setLevels] = useState([])
-    const [loading, setLoading] = useState(true)
     const [deleteLevelView, setDeleteLevelView] = useState(false)
     const [selectedData, setSelectedData] = useState(null)
 
     useEffect(() => {
-        setTimeout(() => {
-            getLevelsForAdmin().then((data) => setLevels(data.data)).finally(() => setLoading(false))
-        }, 1000)
+        getLevelsForAdmin().then((data) => setLevels(data.data))
     }, []);
-    if (loading) {
+    if (levels.length === 0) {
         return (
             <div className='position-absolute top-50 start-50 translate-middle'>
                 <Spinner animation={"grow"} role='status' />

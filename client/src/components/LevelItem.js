@@ -30,7 +30,7 @@ const LevelItem = ({ level }) => {
                 <CardBody>
                     <div>{level.name}</div>
                     <Button className="mt-1 w-100" disabled={level.tokenStatus} variant={level.tokenStatus === 0 ? "outline-dark" : "outline-success"}
-                        onClick={user.isAuth ? () => {window.open('http://localhost/' + level.url, '_blank'); setTimeStart()}
+                        onClick={user.isAuth ? () => {window.open('http://dnd-dusa.ru/' + level.url, '_blank'); setTimeStart()}
                             :
                             () => navigate.push(LOGIN_ROUTE)}>
                         {level.tokenStatus === 1 ? 'Выполнено' : 'Приступить'}

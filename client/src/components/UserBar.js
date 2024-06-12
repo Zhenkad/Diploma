@@ -17,7 +17,6 @@ const UserBar = observer(() => {
     const [deleteUserView, setDeleteUserView] = useState(false)
     const [userStatView, setUserStatView] = useState(false)
     const [selectedData, setSelectedData] = useState(null)
-    const [loading, setLoading] = useState(true)
 
     const tooltipEdit = (
         <Tooltip id="tooltipEdit">
@@ -38,11 +37,9 @@ const UserBar = observer(() => {
     );
 
     useEffect(() => {
-        setTimeout(() => {
-            fetchUsers().then((data) => setUsers(data.data)).finally(() => setLoading(false))
-        }, 1000)
-    });
-    if (loading) {
+        fetchUsers().then((data) => setUsers(data.data))
+    }, []);
+    if (users.length === 0) {
         return (
             <div className='position-absolute top-50 start-50 translate-middle'>
                 <Spinner animation={"grow"} role='status' />
