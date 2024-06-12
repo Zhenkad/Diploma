@@ -3,7 +3,7 @@ import { Modal, Button } from "react-bootstrap";
 import { deleteLevel } from "../../http/levelAPI";
 
 
-const EditLevel = ({ data, show, onHide }) => {
+const DeleteLevel = ({ data, show, onHide }) => {
 
     const levelDelete = async () => {
         if (!window.confirm('Вы действительно хотите удалить задание?\nЭто действие нельзя отменить!')) return;
@@ -43,4 +43,4 @@ const EditLevel = ({ data, show, onHide }) => {
     );
 };
 
-export default EditLevel;
+export default DeleteLevel;
