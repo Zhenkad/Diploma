@@ -9,7 +9,6 @@ const DeleteLevel = ({ data, show, onHide }) => {
         if (!window.confirm('Вы действительно хотите удалить задание?\nЭто действие нельзя отменить!')) return;
         try {
             await deleteLevel(data.id)
-            console.log(data.id)
             alert("Задание удалено")
             window.location.reload()
         }

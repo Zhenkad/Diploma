@@ -15,7 +15,6 @@ const LevelItem = ({ level }) => {
     const navigate = useHistory()
     const [tokenVisible, setTokenVisible] = useState(false)
 
-    console.log(level)
 
     const setTimeStart = () => {
         const currentTime = moment().format("HH:mm:ss")
