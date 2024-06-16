@@ -20,14 +20,10 @@ const CheckToken = observer(({ show, onHide, levelId, userId }) => {
      * Отправка токена на проверку
      */
     const checkToken = async () => {
-        try {
-            await passLevel(userId, levelId, token)
-            alert("Задание выполнено")
-            window.location.reload()
-        }
-        catch (e) {
-            alert(e.response.data.message)
-        }
+        await passLevel(userId, levelId, token)
+            .catch(e => alert(e.response.data.message))
+            .then(() => setTimeout(() => document.getElementById("body").innerHTML += `<div class="alert alert-success" role="alert">Задание выполнено</div>`), 3500)
+            .then(() => window.location.reload())
     }
 
     return (
@@ -42,7 +38,7 @@ const CheckToken = observer(({ show, onHide, levelId, userId }) => {
                     Ввести ключ
                 </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body id="body">
                 <FormControl {...register("token", {
                     required: "Поле обязательно к заполнению",
                     minLength: {
@@ -57,10 +53,10 @@ const CheckToken = observer(({ show, onHide, levelId, userId }) => {
                 )} value={token} onChange={e => setToken(e.target.value)} className="mt-3 mb-3" placeholder={"Введите ключ (строка из 24 символа)"}
                 />
 
-                {errors?.token && 
-                <div class="alert alert-danger" role="alert">
-                    {errors?.token?.message}
-                </div>}
+                {errors?.token &&
+                    <div class="alert alert-danger" role="alert">
+                        {errors?.token?.message}
+                    </div>}
             </Modal.Body>
             <Modal.Footer>
                 <Button variant={"success"} onClick={handleSubmit(checkToken)}>Отправить</Button>

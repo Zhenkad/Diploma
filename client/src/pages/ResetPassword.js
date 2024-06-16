@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import React, {useState} from "react";
-import { Card, Container, Form, Button } from "react-bootstrap";
+import { Card, Container, Form, Button, Alert } from "react-bootstrap";
 import { resetPasswordRequest } from "../http/userApi";
 import { LOGIN_ROUTE } from "../utils/consts";
 import { NavLink } from "react-router-dom";
@@ -9,18 +9,21 @@ const ResetPassword = observer(() => {
     const [userName, setUserName] = useState('')
     const [newPassword, setNewPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [success, setSuccess] = useState(false)
+    const [errorMessage, setMessage] = useState('')
 
-    const resetPassword = () => {
+    const resetPassword = async () => {
         try{
             if (newPassword !== confirmPassword) {
-                alert("Пароли не совпадают")
+                setMessage("Пароли не совпадают")
                 return
             }
-            resetPasswordRequest(userName, newPassword)
-            alert("Пароль успешно изменен")
-            window.location.replace(LOGIN_ROUTE)
+            await resetPasswordRequest(userName, newPassword)
+            setMessage('')
+            setSuccess(true)
+            setTimeout(() => window.location.replace(LOGIN_ROUTE), 1000)
         } catch (e) {
-            alert(e.response.data.message)
+            setMessage(e.response.data.message)
         }
     }
 
@@ -32,7 +35,9 @@ const ResetPassword = observer(() => {
                     <Form.Control className="mt-3" placeholder="Введите адрес электронной почты..." value={userName} onChange={e => setUserName(e.target.value)} />
                     <Form.Control className="mt-3" placeholder="Новый пароль..." type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} />
                     <Form.Control className="mt-3" placeholder="Подтвердите пароль..." type="password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
-                    <NavLink className="mt-3" to={LOGIN_ROUTE}>Вернуться на страницу авторизации</NavLink>
+                    {errorMessage && <Alert className="mt-2 mb-0 p-2 text-center" variant={"danger"}>{errorMessage}</Alert>}
+                    {success && <Alert className="mt-2 mb-0 p-2 text-center" variant={"success"}>Пароль изменен</Alert>}
+                    <NavLink className="mt-1" to={LOGIN_ROUTE}>Вернуться на страницу авторизации</NavLink>
                     <Button className="mt-3 align-self-end w-100" variant={"outline-success"} onClick={() => resetPassword()}>Изменить пароль</Button>
                 </Form>
             </Card>

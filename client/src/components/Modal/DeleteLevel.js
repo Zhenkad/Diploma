@@ -9,8 +9,8 @@ const DeleteLevel = ({ data, show, onHide }) => {
         if (!window.confirm('Вы действительно хотите удалить задание?\nЭто действие нельзя отменить!')) return;
         try {
             await deleteLevel(data.id)
-            alert("Задание удалено")
-            window.location.reload()
+                .then(() => setTimeout(() => document.getElementById("body").innerHTML += `<div class="alert alert-success" role="alert">Задание удалено</div>`), 2000)
+                .then(() => window.location.reload())
         }
         catch (e) {
             alert(e.response.data.message)
@@ -29,7 +29,7 @@ const DeleteLevel = ({ data, show, onHide }) => {
                     Удалить задание?
                 </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body id="body">
                 <div>
                     <p>Вы действительно хотите удалить задание {<b>{data.name}</b>}?</p>
                 </div>

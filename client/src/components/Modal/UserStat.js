@@ -7,19 +7,16 @@ import { getStatistic } from '../../http/levelAPI';
 const UserStat = observer(({ data, show, onHide }) => {
 
     const [statistic, setStatistic] = useState([])
-    const [loading, setLoading] = useState(true)
     var [countOfPassedLevels, setCountOfPassedLevels] = useState(0) // Инициализируйте countOfPassedLevels внутри useEffect
 
     useEffect(() => {
-        setTimeout(() => {
-            getStatistic(data.id).then((data1) => {
-                setStatistic(data1.data)
-                // Обновите countOfPassedLevels после получения данных
-                setCountOfPassedLevels(data1.data.filter((st) => st.tokenStatus === 1).length)
-            }).finally(() => setLoading(false))
-        }, 1000)
-    });
-    if (loading) {
+        getStatistic(data.id).then((data1) => {
+            setStatistic(data1.data)
+            // Обновите countOfPassedLevels после получения данных
+            setCountOfPassedLevels(data1.data.filter((st) => st.tokenStatus === 1).length)
+        })
+    }, [data.id]);
+    if (statistic.length === 0) {
         return (
             <div className='position-absolute top-50 start-50 translate-middle'>
                 <Spinner animation={"grow"} role='status' />
@@ -29,16 +26,18 @@ const UserStat = observer(({ data, show, onHide }) => {
 
     const columns = [
         { name: "Задание", selector: 'name', sortable: true },
-        {  name: "Статус",
-        selector: 'tokenStatus',
-        sortable: true,
-        cell: (row) => {
-            if (row.tokenStatus === 'Выполнено') {
-                return <span className="badge bg-success">Выполнено</span>;
-            } else {
-                return <span className="badge bg-danger">Не выполнено</span>;
+        {
+            name: "Статус",
+            selector: 'tokenStatus',
+            sortable: true,
+            cell: (row) => {
+                if (row.tokenStatus === 'Выполнено') {
+                    return <span className="badge bg-success">Выполнено</span>;
+                } else {
+                    return <span className="badge bg-danger">Не выполнено</span>;
+                }
             }
-        }},
+        },
         { name: "Дата выполнения", selector: 'passDate', sortable: true },
         { name: "Время выполнения задания", selector: 'timeForLevel', sortable: true },
     ]

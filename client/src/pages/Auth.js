@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react'
-import { Container, Form } from 'react-bootstrap';
+import { Container, Form, Alert } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import { NavLink, useLocation } from 'react-router-dom';
-import { REGISTRATION_ROUTE, LOGIN_ROUTE, RESETPASSWORD_ROUTE} from "../utils/consts";
+import { REGISTRATION_ROUTE, LOGIN_ROUTE, RESETPASSWORD_ROUTE } from "../utils/consts";
 import { login, registration } from "../http/userApi";
 import { observer } from "mobx-react-lite";
 import { Context } from "../index";
@@ -31,6 +31,8 @@ const Auth = observer(() => {
     const [password, setPassword] = useState('')
     const [phone_number, setPhoneNumber] = useState('')
     const isValid = isPhoneValid(phone_number);
+    const [showSuccess, setSuccess] = useState(false);
+    const [showError, setError] = useState('');
 
     const {
         register,
@@ -50,9 +52,11 @@ const Auth = observer(() => {
             }
             user.setUser(data)
             user.setIsAuth(true)
-            window.location.replace('/')
+            setError('')
+            setSuccess(true)
+            setTimeout(() => window.location.replace('/'), 1000)
         } catch (e) {
-            alert(e.response.data.message)
+            setError(e.response.data.message)
         }
     }
 
@@ -70,7 +74,7 @@ const Auth = observer(() => {
                         },
                     }
                     )} className="mt-3" placeholder="Адрес электронной почты..." value={user_name} onChange={e => setUser_name(e.target.value)} />
-                    <div>{errors?.userName && <p style={{ color: "red" }}>{errors?.userName?.message}</p>}</div>
+                    <div>{errors?.userName && <p className="my-0" style={{ color: "red" }}>{errors?.userName?.message}</p>}</div>
 
                     {!isLogin &&
                         <div className="mt-3">
@@ -83,13 +87,14 @@ const Auth = observer(() => {
                         </div>
                     }
 
-                    <Form.Control {...register("password", {
+                    <Form.Control id="password" {...register("password", {
                         required: "Поле обязательно к заполнению",
                     }
                     )} className="mt-3" placeholder="Пароль..." type="password" value={password} onChange={e => setPassword(e.target.value)} />
-                    <div>{errors?.password && <p style={{ color: "red" }}>{errors?.password?.message}</p>}</div>
-
-                    <div className="d-flex justify-content-between mt-3">
+                    <div>{errors?.password && <p className="my-0" style={{ color: "red" }}>{errors?.password?.message}</p>}</div>
+                    {showSuccess && <Alert className="mt-3 p-2 text-center" variant={"success"}>Добро пожаловать</Alert>}
+                    {showError !== '' && <Alert className="mt-3 p-2 text-center" variant={"danger"}>{showError}</Alert>}
+                    <div className="d-flex justify-content-between mt-1">
                         {isLogin ?
                             <div>
                                 Нет аккаунта? <NavLink to={REGISTRATION_ROUTE}>Зарегистрируйся!</NavLink>
@@ -101,7 +106,7 @@ const Auth = observer(() => {
                         }
                         <NavLink className="align-self-end" to={RESETPASSWORD_ROUTE}>Забыли пароль?</NavLink>
                     </div>
-                    <Button className="align-self-end w-100 my-3" onClick={handleSubmit(click)} variant={"outline-success"}>{isLogin ? 'Войти' : 'Регистрация'}</Button>
+                    <Button className="align-self-end w-100 mt-3" onClick={handleSubmit(click)} variant={"outline-success"}>{isLogin ? 'Войти' : 'Регистрация'}</Button>
                 </Form>
             </Card>
         </Container>
