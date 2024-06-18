@@ -28,6 +28,7 @@ const Statistic = sequelize.define('statistic', {
     timeStart :{type: DataTypes.TIME, allowNull: true},
     timePass: {type: DataTypes.TIME, allowNull: true},
     timeForLevel: {type: DataTypes.TIME, allowNull: true},
+    atempts: {type: DataTypes.INTEGER, defaultValue: 0},
 })
 
 Levels.hasMany(Tokens)

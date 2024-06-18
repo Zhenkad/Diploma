@@ -123,13 +123,21 @@ class levelController {
 
     async setTimeStart(req, res, next) {
         const { levelId, userId, currentTime } = req.body
-        await Statistic.update({ timeStart: currentTime }, { where: { levelId, userId } })
+        let atempts = await Statistic.findOne({ attributes: ['atempts'], where: { levelId, userId } })
+        console.log(atempts)
+        if (!atempts) {
+            atempts.atempts = 1
+        } else {
+            atempts.atempts += 1
+        }
+        await Statistic.update({ atempts: atempts.atempts }, { where: { levelId, userId } })
+        await Statistic.update({ timeStart: currentTime },  { where: { levelId, userId } })
         return res.json(true)
     }
 
     async getStatistic(req, res, next) {
         const { userId } = req.query
-        const statistic = await db.query(`SELECT levels.name, tokens.tokenStatus, tokens.passDate, statistics.timeForLevel
+        const statistic = await db.query(`SELECT levels.name, tokens.tokenStatus, tokens.passDate, statistics.timeForLevel, statistics.atempts
                                         FROM levels RIGHT JOIN tokens ON levels.id = tokens.levelId
                                         RIGHT JOIN statistics ON levels.id = statistics.levelId AND tokens.userId = statistics.userId
                                         WHERE statistics.userId = ` + userId, { type: db.QueryTypes.SELECT })

@@ -40,6 +40,7 @@ const UserStat = observer(({ data, show, onHide }) => {
         },
         { name: "Дата выполнения", selector: 'passDate', sortable: true },
         { name: "Время выполнения задания", selector: 'timeForLevel', sortable: true },
+        { name: "Попытки", selector: 'atempts', sortable: true },
     ]
 
     statistic.forEach(st => {
