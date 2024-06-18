@@ -25,7 +25,8 @@ const CreateLevel = observer(({ show, onHide }) => {
         formData.append('name', name)
         formData.append('url', url)
         formData.append('img', file)
-        await createLevel(formData).then(data => onHide()).finally(window.location.reload())
+        await createLevel(formData).then(data => onHide())
+        window.location.reload()
     }
 
     return (
