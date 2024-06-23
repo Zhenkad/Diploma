@@ -1,19 +1,20 @@
-import React from "react";
-import { Modal, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Modal, Button, Alert } from "react-bootstrap";
 import { deleteLevel } from "../../http/levelAPI";
 
 
 const DeleteLevel = ({ data, show, onHide }) => {
+    const [success, setSuccess] = useState(false)
+    const [errorMassage, setErrorMassage] = useState('')
 
     const levelDelete = async () => {
-        if (!window.confirm('Вы действительно хотите удалить задание?\nЭто действие нельзя отменить!')) return;
         try {
             await deleteLevel(data.id)
-                .then(() => setTimeout(() => document.getElementById("body").innerHTML += `<div class="alert alert-success" role="alert">Задание удалено</div>`), 2000)
-                .then(() => window.location.reload())
+                .then(() => setSuccess(true))
+                .then(() => setTimeout(() => window.location.reload(), 2000))
         }
         catch (e) {
-            alert(e.response.data.message)
+            setErrorMassage(e.response.data.message)
         }
     }
 
@@ -33,6 +34,8 @@ const DeleteLevel = ({ data, show, onHide }) => {
                 <div>
                     <p>Вы действительно хотите удалить задание {<b>{data.name}</b>}?</p>
                 </div>
+                {errorMassage !== '' && <Alert className="mt-3 p-1 text-center" variant={"danger"}>{errorMassage}</Alert>}
+                {success && <Alert className="mt-3 p-1 text-center" variant={"success"}>Задание удалено</Alert>}
             </Modal.Body>
             <Modal.Footer>
                 <Button className="px-4" variant={"success"} onClick={levelDelete} size="lg">Да</Button>

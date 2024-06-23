@@ -1,19 +1,23 @@
 import React, { useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { Form, Modal, Button, Container, Row, Col } from 'react-bootstrap';
+import { Form, Modal, Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import { changeRole } from '../../http/userApi';
 
 const EditUser = observer(({ data, show, onHide }) => {
 
     const [selectedRole, setSelectedRole] = useState(data.role);
+    const [success, setSuccess] = useState(false)
+    const [errorMassage, setErrorMassage] = useState('')
     const handleSelectChange = (e) => {
         setSelectedRole(e.target.value);
     };
 
     const changeUserRole = async () => {
         await changeRole(data.id, selectedRole)
-        alert(`Роль пользователя ${data.user_name} изменена на ${selectedRole}`)
-        window.location.reload()
+            .then(() => setErrorMassage(''))
+            .then(() => setSuccess(true))
+            .then(() => setTimeout(() => window.location.reload(), 2000))
+            .catch((e) => setErrorMassage(e.response.data.message))
     }
 
     //Преобразование строки в Дату
@@ -76,6 +80,8 @@ const EditUser = observer(({ data, show, onHide }) => {
                         </Col>
                     </Row>
                 </Container>
+                {success && <Alert className="mt-3 p-2 text-center" variant="success">Данные пользователя {data.user_name} изменены на {selectedRole}</Alert>}
+                {errorMassage !== '' && <Alert className="mt-3 p-2 text-center" variant="danger">{errorMassage}</Alert>}
             </Modal.Body>
             <Modal.Footer>
                 <Button variant={"success"} onClick={changeUserRole}>Отправить</Button>
